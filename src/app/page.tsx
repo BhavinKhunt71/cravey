@@ -234,13 +234,13 @@ export default function WaitlistPage() {
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#F4F4F0] text-[#52525B]">
               <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse"></span>
-              iOS Beta Opening
+              Coming Soon to iOS
             </span>
             <a
               href="#waitlist"
               className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#0F1012] text-white hover:bg-[#27272A] transition-colors"
             >
-              Get Early Access
+              Join Waitlist
             </a>
           </div>
         </div>
@@ -277,9 +277,14 @@ export default function WaitlistPage() {
             {!joined ? (
               <form onSubmit={handleJoinWaitlist} className="space-y-4">
                 <div className="text-left mb-2">
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-[#71717A] mb-1.5">
-                    Reserve Your Spot in the Private Beta
-                  </label>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#71717A]">
+                      Join the VIP Waitlist
+                    </label>
+                    <span className="text-[11px] font-semibold text-[#F05A28] bg-[#FFF3EE] px-2 py-0.5 rounded-full">
+                      🎁 Free Recipe Card Pack Included
+                    </span>
+                  </div>
                   <div className="relative">
                     <input
                       type="email"
@@ -306,18 +311,18 @@ export default function WaitlistPage() {
                   {loading ? (
                     <span className="inline-flex items-center gap-2">
                       <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                      Reserving VIP Spot...
+                      Reserving Your Spot...
                     </span>
                   ) : (
                     <>
-                      <span>Join the VIP Waitlist</span>
+                      <span>Join Waitlist & Get Free Recipe Pack</span>
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
                 </button>
 
                 <p className="text-xs text-[#71717A] pt-1">
-                  🔒 Zero spam. Instant invite when beta releases for iOS & Android.
+                  🔒 No spam ever. We'll send your recipe pack and notify you the moment Cravey goes live.
                 </p>
               </form>
             ) : (
@@ -335,7 +340,7 @@ export default function WaitlistPage() {
                     You are #{queuePosition?.toLocaleString()} in line!
                   </h3>
                   <p className="text-sm text-[#52525B]">
-                    We’ve reserved your VIP beta invite for <strong>{email}</strong>.
+                    We’ve reserved your spot for <strong>{email}</strong>. Check your inbox shortly for your free craving-swap starter cards!
                   </p>
                 </div>
 
@@ -386,7 +391,7 @@ export default function WaitlistPage() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-[#71717A]">
             <div className="flex items-center gap-1 text-[#F05A28] font-bold">
               <span>★★★★★</span>
-              <span className="text-[#0F1012] ml-1">4.9/5 Private Beta Score</span>
+              <span className="text-[#0F1012] ml-1">4.9/5 Macro & Taste Rating</span>
             </div>
             <span className="hidden sm:inline">·</span>
             <div>
@@ -756,19 +761,19 @@ export default function WaitlistPage() {
             {[
               {
                 q: "When is Cravey officially launching?",
-                a: "The private iOS and Android TestFlight beta opens in Q4 2026. Waitlist members receive rolling early access codes in batches according to queue position.",
+                a: "Cravey is launching on iOS and Android soon. Waitlist members get notified first, receive free founding member badges, and get immediate access to all launch recipes.",
               },
               {
                 q: "Is Cravey free to use?",
-                a: "Yes! Cravey will offer a generous free tier with daily craving swaps, knolled visual recipes, and basic macro tracking. A Pro subscription will be available for customized meal planning and automatic grocery sync.",
+                a: "Yes! Cravey offers a generous free tier with daily craving swaps, knolled visual recipes, and basic macro tracking. A Pro subscription will be available for customized meal planning and automatic grocery sync.",
               },
               {
                 q: "Can I filter for allergies or dietary restrictions?",
                 a: "Absolutely. Cravey allows you to set filters for Gluten-Free, Dairy-Free, Nut-Free, High-Protein / Low-Carb, Vegan, and Sugar-Free swaps.",
               },
               {
-                q: "How does the referral bonus work?",
-                a: "Once you enter your email, you receive a unique referral link. For each friend who joins using your link, your queue position jumps 50 spots forward, guaranteeing earlier beta access.",
+                q: "What happens when I join the waitlist?",
+                a: "You'll secure your spot in line, receive our free 'Top 10 Secret Candy Swaps' guide, and get notified the exact minute Cravey launches with exclusive founding member perks.",
               },
             ].map((faq, index) => (
               <div
@@ -797,7 +802,7 @@ export default function WaitlistPage() {
         </div>
       </section>
 
-      {/* 8. Bottom Sticky Call-to-Action */}
+      {/* 8. Bottom Call-to-Action */}
       <section className="py-20 bg-white border-t border-[#EAEAE6]">
         <div className="max-w-4xl mx-auto px-6 text-center space-y-6">
           <div className="w-12 h-12 rounded-2xl bg-[#F05A28] flex items-center justify-center mx-auto text-white font-bold text-2xl">
@@ -807,14 +812,14 @@ export default function WaitlistPage() {
             Stop fighting your cravings. Start swapping them.
           </h2>
           <p className="text-base text-[#52525B] max-w-xl mx-auto">
-            Join over 1,400 early food lovers on the Cravey VIP list. Be the first to get access when the App Store beta drops.
+            Join over 1,400 health-conscious food lovers on the Cravey list. Get your free recipe pack and be the first to know when we launch.
           </p>
           <div className="pt-2">
             <a
               href="#waitlist"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-[#0F1012] hover:bg-[#27272A] transition-all shadow-lg shadow-black/10 text-base"
             >
-              <span>Claim Your Early Access Spot</span>
+              <span>Join the Waitlist (Free)</span>
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
