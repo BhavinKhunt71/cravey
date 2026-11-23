@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { BLOG_POSTS } from "@/data/blogs";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://cravey.app";
+  const baseUrl = "https://cravey-omega.vercel.app";
 
   // Static core routes
   const staticRoutes: MetadataRoute.Sitemap = [

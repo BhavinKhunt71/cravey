@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://cravey.app/sitemap.xml",
+    sitemap: "https://cravey-omega.vercel.app/sitemap.xml",
   };
 }

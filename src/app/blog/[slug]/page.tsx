@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: post.metaTitle,
       description: post.metaDescription,
-      url: `https://cravey.app/blog/${post.slug}`,
+      url: `https://cravey-omega.vercel.app/blog/${post.slug}`,
       siteName: "Cravey",
       type: "article",
       publishedTime: post.publishedAt,
@@ -83,7 +83,7 @@ export default async function BlogPostPage({ params }: Props) {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.metaDescription,
-    image: `https://cravey.app${post.coverImage}`,
+    image: `https://cravey-omega.vercel.app${post.coverImage}`,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     author: {
@@ -96,12 +96,12 @@ export default async function BlogPostPage({ params }: Props) {
       name: "Cravey",
       logo: {
         "@type": "ImageObject",
-        url: "https://cravey.app/app-icon.png",
+        url: "https://cravey-omega.vercel.app/app-icon.png",
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://cravey.app/blog/${post.slug}`,
+      "@id": `https://cravey-omega.vercel.app/blog/${post.slug}`,
     },
   };
 
@@ -111,7 +111,7 @@ export default async function BlogPostPage({ params }: Props) {
         "@type": "Recipe",
         name: post.recipeCard.title,
         description: post.summary,
-        image: `https://cravey.app${post.coverImage}`,
+        image: `https://cravey-omega.vercel.app${post.coverImage}`,
         author: {
           "@type": "Person",
           name: post.author.name,

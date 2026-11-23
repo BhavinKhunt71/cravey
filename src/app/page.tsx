@@ -163,8 +163,8 @@ export default function HomePage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Cravey",
-    url: "https://cravey.app",
-    logo: "https://cravey.app/app-icon.png",
+    url: "https://cravey-omega.vercel.app",
+    logo: "https://cravey-omega.vercel.app/app-icon.png",
     sameAs: [APP_STORE_URL, PLAY_STORE_URL],
   };
 

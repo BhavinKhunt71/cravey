@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cravey.app"),
+  metadataBase: new URL("https://cravey-omega.vercel.app"),
   alternates: {
     canonical: "./",
   },
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Cravey — High-Protein Craving Swaps",
     description: "Satisfy your 9 PM cravings without breaking your macros.",
-    url: "https://cravey.app",
+    url: "https://cravey-omega.vercel.app",
     siteName: "Cravey",
     images: [
       {

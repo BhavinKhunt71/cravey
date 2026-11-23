@@ -91,7 +91,7 @@ export async function POST(request: Request) {
         alreadyRegistered: true,
         position: existing.position,
         referralCode: existing.referralCode,
-        referralLink: `https://cravey.app?ref=${existing.referralCode}`,
+        referralLink: `https://cravey-omega.vercel.app?ref=${existing.referralCode}`,
         referralCount: existing.referralCount || 0,
         totalCount: BASE_QUEUE_OFFSET + entries.length,
       });
@@ -130,7 +130,7 @@ export async function POST(request: Request) {
       alreadyRegistered: false,
       position: newPosition,
       referralCode: refCode,
-      referralLink: `https://cravey.app?ref=${refCode}`,
+      referralLink: `https://cravey-omega.vercel.app?ref=${refCode}`,
       referralCount: 0,
       totalCount: BASE_QUEUE_OFFSET + entries.length,
     });
