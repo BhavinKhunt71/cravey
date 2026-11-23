@@ -8,6 +8,16 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         disallow: ["/api/"],
       },
+      {
+        userAgent: ["Googlebot", "Bingbot", "Applebot"],
+        allow: "/",
+        disallow: ["/api/"],
+      },
+      {
+        userAgent: ["GPTBot", "PerplexityBot", "ClaudeBot", "Google-Extended", "Applebot-Extended"],
+        allow: "/",
+        disallow: ["/api/"],
+      },
     ],
     sitemap: "https://cravey-omega.vercel.app/sitemap.xml",
   };

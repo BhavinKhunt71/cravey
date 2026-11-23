@@ -165,12 +165,41 @@ export default async function BlogPostPage({ params }: Props) {
       }
     : null;
 
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://cravey-omega.vercel.app",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Recipes & Swaps",
+        item: "https://cravey-omega.vercel.app/blog",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `https://cravey-omega.vercel.app/blog/${post.slug}`,
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-white text-[#0F1012] selection:bg-[#FFE3D6] selection:text-[#C4380A]">
       {/* Schema Injection */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
       />
       {jsonLdRecipe && (
         <script
