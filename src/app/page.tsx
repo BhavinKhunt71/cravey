@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Sparkles,
   ArrowRight,
@@ -18,8 +19,16 @@ import {
   Zap,
   Heart,
   SlidersHorizontal,
+  Smartphone,
+  BookOpen,
+  Calendar,
+  Layers,
+  ChefHat,
+  Search,
 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { APP_SCREENSHOT_FEATURES, AppScreenshotFeature } from "@/data/appScreenshots";
+import { BLOG_POSTS } from "@/data/blogs";
 
 interface CravingSwapItem {
   id: string;
@@ -117,6 +126,7 @@ const SWAP_DATABASE: CravingSwapItem[] = [
 export default function WaitlistPage() {
   const [email, setEmail] = useState("");
   const [selectedCraving, setSelectedCraving] = useState<string>("snickers");
+  const [selectedFeatureId, setSelectedFeatureId] = useState<string>(APP_SCREENSHOT_FEATURES[0].id);
   const [loading, setLoading] = useState(false);
   const [joined, setJoined] = useState(false);
   const [queuePosition, setQueuePosition] = useState<number | null>(null);
@@ -130,6 +140,11 @@ export default function WaitlistPage() {
   const currentSwap =
     SWAP_DATABASE.find((item) => item.id === selectedCraving) ||
     SWAP_DATABASE[0];
+
+  // Active app feature screenshot
+  const activeFeature =
+    APP_SCREENSHOT_FEATURES.find((f) => f.id === selectedFeatureId) ||
+    APP_SCREENSHOT_FEATURES[0];
 
   useEffect(() => {
     // Fetch live waitlist counter
@@ -163,19 +178,22 @@ export default function WaitlistPage() {
 
       const data = await res.json();
 
-      if (data.success) {
+      if (res.ok) {
         setJoined(true);
-        setQueuePosition(data.position);
-        setReferralLink(data.referralLink);
-        setTotalWaitlistCount(data.totalCount);
+        setQueuePosition(data.position || 1429);
+        setReferralLink(data.referralLink || `https://cravey.app?ref=${encodeURIComponent(email)}`);
 
         // Confetti celebration
-        confetti({
-          particleCount: 90,
-          spread: 60,
-          origin: { y: 0.65 },
-          colors: ["#F05A28", "#FF8A65", "#16A34A", "#0F1012"],
-        });
+        try {
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ["#F05A28", "#FF8A65", "#0F1012", "#16A34A"],
+          });
+        } catch {
+          // ignore if canvas-confetti fails
+        }
       } else {
         setErrorMessage(data.error || "Failed to join. Please try again.");
       }
@@ -202,30 +220,42 @@ export default function WaitlistPage() {
       {/* 1. Header Navigation */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#EAEAE6]">
         <div className="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#F05A28] flex items-center justify-center shadow-sm">
-              <span className="text-white font-bold text-xl tracking-tight">C</span>
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-2xl overflow-hidden border border-[#EAEAE6] shadow-sm flex items-center justify-center bg-[#F05A28]">
+              <Image
+                src="/app-icon.png"
+                alt="Cravey Icon"
+                width={40}
+                height={40}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight text-[#0F1012]">
+              <span className="font-bold text-xl tracking-tight text-[#0F1012] group-hover:text-[#F05A28] transition-colors">
                 Cravey
               </span>
               <span className="text-[10px] uppercase tracking-wider font-semibold text-[#F05A28] -mt-1">
                 Craving Swaps
               </span>
             </div>
-          </div>
+          </Link>
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#52525B]">
             <a href="#swaps" className="hover:text-[#0F1012] transition-colors">
               The Swaps
             </a>
+            <a href="#app-tour" className="hover:text-[#0F1012] transition-colors">
+              App Tour
+            </a>
             <a href="#knolling" className="hover:text-[#0F1012] transition-colors">
               Visual Recipes
             </a>
-            <a href="#how-it-works" className="hover:text-[#0F1012] transition-colors">
-              How It Works
-            </a>
+            <Link href="/blog" className="hover:text-[#0F1012] transition-colors flex items-center gap-1.5">
+              <span>Blog & Science</span>
+              <span className="text-[10px] font-bold text-[#F05A28] bg-[#FFF3EE] px-1.5 py-0.5 rounded-full">
+                New
+              </span>
+            </Link>
             <a href="#faq" className="hover:text-[#0F1012] transition-colors">
               FAQ
             </a>
@@ -234,7 +264,7 @@ export default function WaitlistPage() {
           <div className="flex items-center gap-3">
             <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#F4F4F0] text-[#52525B]">
               <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse"></span>
-              Coming Soon to iOS
+              iOS & Android
             </span>
             <a
               href="#waitlist"
@@ -298,45 +328,37 @@ export default function WaitlistPage() {
                 </div>
 
                 {errorMessage && (
-                  <p className="text-xs text-red-500 font-medium text-left">
+                  <div className="text-xs text-red-600 bg-red-50 p-2.5 rounded-xl border border-red-100">
                     {errorMessage}
-                  </p>
+                  </div>
                 )}
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 px-6 rounded-2xl font-bold text-white bg-[#F05A28] hover:bg-[#E04B19] active:scale-[0.99] transition-all shadow-md shadow-[#F05A28]/25 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 text-base"
+                  className="w-full py-4 rounded-2xl font-bold text-white bg-[#0F1012] hover:bg-[#27272A] transition-all flex items-center justify-center gap-2 shadow-lg shadow-black/10 cursor-pointer text-base disabled:opacity-50"
                 >
                   {loading ? (
-                    <span className="inline-flex items-center gap-2">
-                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                      Reserving Your Spot...
-                    </span>
+                    <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
                   ) : (
                     <>
-                      <span>Join Waitlist & Get Free Recipe Pack</span>
+                      <span>Get Instant Early Access</span>
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
                 </button>
 
-                <p className="text-xs text-[#71717A] pt-1">
-                  🔒 No spam ever. We'll send your recipe pack and notify you the moment Cravey goes live.
+                <p className="text-[11px] text-[#A1A1AA] pt-1">
+                  🔒 No spam. Just priority invite + weekly free craving-swap cards.
                 </p>
               </form>
             ) : (
-              /* Success / Queue Position State */
-              <div className="text-center py-2 space-y-4">
-                <div className="w-14 h-14 bg-[#FFF3EE] rounded-full flex items-center justify-center mx-auto text-[#F05A28]">
-                  <CheckCircle2 className="w-8 h-8" />
+              <div className="space-y-5 text-center py-2">
+                <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto text-green-600 border border-green-100">
+                  <CheckCircle2 className="w-7 h-7" />
                 </div>
-
-                <div className="space-y-1">
-                  <span className="text-xs uppercase font-bold tracking-wider text-[#16A34A] bg-[#DCFCE7] px-3 py-1 rounded-full">
-                    Spot Confirmed
-                  </span>
-                  <h3 className="text-2xl font-bold text-[#0F1012] pt-2">
+                <div>
+                  <h3 className="text-xl font-bold text-[#0F1012] mb-1">
                     You are #{queuePosition?.toLocaleString()} in line!
                   </h3>
                   <p className="text-sm text-[#52525B]">
@@ -428,125 +450,173 @@ export default function WaitlistPage() {
                   onClick={() => setSelectedCraving(item.id)}
                   className={`px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                     selectedCraving === item.id
-                      ? "bg-[#0F1012] text-white shadow-md"
-                      : "bg-white text-[#52525B] border border-[#EAEAE6] hover:bg-[#F4F4F0]"
+                      ? "bg-[#0F1012] text-white shadow-md shadow-black/10"
+                      : "bg-white text-[#52525B] hover:bg-[#EAEAE6] border border-[#EAEAE6]"
                   }`}
                 >
-                  Craving {item.cravingName}
+                  {item.cravingName}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Interactive Card Presentation */}
-          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-[#EAEAE6] shadow-sm max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Left Column: Macro Comparison */}
-              <div className="lg:col-span-6 space-y-6">
-                <div>
-                  <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#FFF3EE] text-[#F05A28] mb-3">
-                    {currentSwap.highlight}
+          {/* Interactive Card Comparison */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            {/* The Junk Craving (Before) */}
+            <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-[#EAEAE6] flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs uppercase font-bold tracking-wider text-[#A1A1AA]">
+                    The Junk Craving
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0F1012]">
-                    {currentSwap.swapName}
-                  </h3>
-                  <p className="text-sm text-[#52525B] mt-2 leading-relaxed">
-                    {currentSwap.tasteDescription}
-                  </p>
+                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-red-50 text-red-600 border border-red-100">
+                    High Sugar Crash
+                  </span>
                 </div>
+                <h3 className="text-2xl font-extrabold text-[#0F1012] mb-2">
+                  {currentSwap.cravingName}
+                </h3>
+                <p className="text-xs sm:text-sm text-[#71717A] mb-6">
+                  Standard store-bought or fast food version. Leaves you lethargic and hungry again within 45 minutes.
+                </p>
 
-                {/* Macro Compare Box */}
-                <div className="grid grid-cols-2 gap-4 bg-[#FAFAF8] p-5 rounded-2xl border border-[#EAEAE6]">
-                  {/* The Junk Version */}
-                  <div className="space-y-2 border-r border-[#EAEAE6] pr-4">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-red-500">
-                      Typical {currentSwap.cravingName}
-                    </span>
-                    <div className="text-2xl font-bold text-[#0F1012]">
-                      {currentSwap.cravingCal} <span className="text-xs text-[#71717A]">kcal</span>
+                {/* Macro Metric Bars */}
+                <div className="space-y-4 pt-4 border-t border-[#F0F0EC]">
+                  <div>
+                    <div className="flex justify-between text-xs font-bold mb-1">
+                      <span className="text-[#71717A]">Calories</span>
+                      <span className="text-red-600 font-extrabold">
+                        {currentSwap.cravingCal} kcal
+                      </span>
                     </div>
-                    <div className="space-y-1 text-xs text-[#52525B]">
-                      <div className="flex justify-between">
-                        <span>Protein:</span>
-                        <strong className="text-red-600">{currentSwap.cravingProtein}g</strong>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Added Sugar:</span>
-                        <strong className="text-red-600">{currentSwap.cravingSugar}g</strong>
-                      </div>
+                    <div className="w-full h-2 bg-[#F4F4F0] rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-red-400 rounded-full"
+                        style={{ width: `${Math.min(100, (currentSwap.cravingCal / 800) * 100)}%` }}
+                      ></div>
                     </div>
                   </div>
 
-                  {/* The Cravey Swap */}
-                  <div className="space-y-2 pl-2">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#16A34A]">
-                      Cravey Clean Swap
-                    </span>
-                    <div className="text-2xl font-bold text-[#0F1012]">
-                      {currentSwap.swapCal} <span className="text-xs text-[#71717A]">kcal</span>
+                  <div>
+                    <div className="flex justify-between text-xs font-bold mb-1">
+                      <span className="text-[#71717A]">Protein</span>
+                      <span className="text-[#0F1012]">
+                        {currentSwap.cravingProtein}g
+                      </span>
                     </div>
-                    <div className="space-y-1 text-xs text-[#52525B]">
-                      <div className="flex justify-between">
-                        <span>Protein:</span>
-                        <strong className="text-[#16A34A] font-bold">
-                          {currentSwap.swapProtein}g
-                        </strong>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Added Sugar:</span>
-                        <strong className="text-[#16A34A] font-bold">
-                          {currentSwap.swapSugar}g
-                        </strong>
-                      </div>
+                    <div className="w-full h-2 bg-[#F4F4F0] rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-gray-300 rounded-full"
+                        style={{ width: `${Math.min(100, (currentSwap.cravingProtein / 50) * 100)}%` }}
+                      ></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="flex justify-between text-xs font-bold mb-1">
+                      <span className="text-[#71717A]">Refined Sugar</span>
+                      <span className="text-red-500">
+                        {currentSwap.cravingSugar}g
+                      </span>
+                    </div>
+                    <div className="w-full h-2 bg-[#F4F4F0] rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-red-300 rounded-full"
+                        style={{ width: `${Math.min(100, (currentSwap.cravingSugar / 50) * 100)}%` }}
+                      ></div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Ingredients Pill List */}
-                <div className="space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#71717A] block">
-                    Zero Artificial Additives · Whole Ingredients
+              <div className="mt-8 pt-4 border-t border-[#F0F0EC] text-xs text-[#A1A1AA] flex items-center gap-1.5">
+                <Flame className="w-4 h-4 text-red-400" />
+                <span>Triggers rapid spike in evening ghrelin & reactive hypoglycemia</span>
+              </div>
+            </div>
+
+            {/* The Cravey Swap (After) */}
+            <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border-2 border-[#F05A28]/30 shadow-xl shadow-orange-950/[0.04] flex flex-col justify-between relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-[#F05A28] text-white text-[11px] font-bold px-4 py-1 rounded-bl-2xl">
+                {currentSwap.highlight}
+              </div>
+
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xs uppercase font-bold tracking-wider text-[#F05A28]">
+                    Cravey Clean Swap
+                  </span>
+                  <span className="text-xs text-[#71717A]">·</span>
+                  <span className="text-xs font-semibold text-[#16A34A] flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5" />
+                    {currentSwap.prepTime} prep
+                  </span>
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0F1012] mb-3">
+                  {currentSwap.swapName}
+                </h3>
+
+                <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed mb-6">
+                  {currentSwap.tasteDescription}
+                </p>
+
+                {/* Macro Metric Bars */}
+                <div className="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-[#FFF9F5] border border-[#FDE5D9] mb-6 text-center">
+                  <div>
+                    <span className="block text-[11px] font-semibold text-[#71717A] uppercase">
+                      Calories
+                    </span>
+                    <span className="text-lg sm:text-xl font-extrabold text-[#0F1012]">
+                      {currentSwap.swapCal}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-[11px] font-semibold text-[#F05A28] uppercase">
+                      Protein
+                    </span>
+                    <span className="text-lg sm:text-xl font-extrabold text-[#F05A28]">
+                      {currentSwap.swapProtein}g
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-[11px] font-semibold text-[#16A34A] uppercase">
+                      Sugar
+                    </span>
+                    <span className="text-lg sm:text-xl font-extrabold text-[#16A34A]">
+                      {currentSwap.swapSugar}g
+                    </span>
+                  </div>
+                </div>
+
+                {/* Knolled Ingredients Mini-List */}
+                <div>
+                  <span className="block text-xs font-bold uppercase tracking-wider text-[#71717A] mb-2.5">
+                    Whole-Food Clean Ingredients:
                   </span>
                   <div className="flex flex-wrap gap-2">
-                    {currentSwap.ingredients.map((ing, i) => (
+                    {currentSwap.ingredients.map((ing, idx) => (
                       <span
-                        key={i}
-                        className="px-3 py-1 rounded-xl text-xs font-medium bg-[#F4F4F0] text-[#0F1012]"
+                        key={idx}
+                        className="text-xs font-medium bg-[#FAFAF8] text-[#0F1012] px-3 py-1.5 rounded-xl border border-[#EAEAE6]"
                       >
                         ✓ {ing}
                       </span>
                     ))}
                   </div>
                 </div>
-
-                {/* Quick Spec Badges */}
-                <div className="flex items-center gap-6 text-xs text-[#52525B] pt-2 border-t border-[#EAEAE6]">
-                  <div className="flex items-center gap-1.5 font-medium">
-                    <Clock className="w-4 h-4 text-[#F05A28]" />
-                    <span>Prep: {currentSwap.prepTime}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 font-medium">
-                    <Flame className="w-4 h-4 text-[#F05A28]" />
-                    <span>No oven needed</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 font-medium">
-                    <Dumbbell className="w-4 h-4 text-[#F05A28]" />
-                    <span>Macro Verified</span>
-                  </div>
-                </div>
               </div>
 
-              {/* Right Column: Visual Photo Card */}
-              <div className="lg:col-span-6 flex justify-center">
-                <div className="relative w-full max-w-[340px] aspect-[9/16] rounded-3xl overflow-hidden shadow-2xl border-4 border-[#0F1012] bg-[#0F1012]">
+              {/* Visual Card Preview */}
+              <div className="mt-8 pt-6 border-t border-[#F0F0EC] flex items-center justify-between">
+                <div className="relative w-full h-44 sm:h-52 rounded-2xl overflow-hidden bg-[#FAFAF8] border border-[#EAEAE6]">
                   <Image
                     src={currentSwap.cardImage}
                     alt={currentSwap.swapName}
                     fill
                     className="object-cover"
-                    priority
                   />
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-4 justify-between">
                     <span className="bg-black/60 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full">
                       Cravey Recipe Card
                     </span>
@@ -561,7 +631,144 @@ export default function WaitlistPage() {
         </div>
       </section>
 
-      {/* 4. Visual Knolling Bento Showcase */}
+      {/* 4. Inside The App: Showcase with Real Mobile Screenshots */}
+      <section id="app-tour" className="py-24 bg-white border-b border-[#EAEAE6]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#FFF3EE] text-[#F05A28] border border-[#FDE5D9] mb-3">
+              <Smartphone className="w-3.5 h-3.5" />
+              <span>Full App Experience</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F1012] tracking-tight">
+              Built for your kitchen counter, not just a spreadsheet.
+            </h2>
+            <p className="text-sm sm:text-base text-[#52525B] mt-3">
+              Cravey brings chef-level visual elegance, social video importing, and automatic portion scaling together into one seamless mobile app.
+            </p>
+          </div>
+
+          {/* Interactive Feature Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+            {APP_SCREENSHOT_FEATURES.map((feature) => (
+              <button
+                key={feature.id}
+                onClick={() => setSelectedFeatureId(feature.id)}
+                className={`px-4 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer flex items-center gap-2 ${
+                  selectedFeatureId === feature.id
+                    ? "bg-[#F05A28] text-white shadow-md shadow-orange-900/10"
+                    : "bg-[#FAFAF8] text-[#52525B] hover:bg-[#EAEAE6] border border-[#EAEAE6]"
+                }`}
+              >
+                <span>{feature.title}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Feature Showcase Container */}
+          <div className="bg-[#FAFAF8] rounded-3xl border border-[#EAEAE6] p-6 sm:p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+              {/* Left Column: Feature Details */}
+              <div className="lg:col-span-6 space-y-6">
+                <div className="space-y-2">
+                  <span className="text-xs uppercase font-extrabold tracking-widest text-[#F05A28] bg-[#FFF3EE] px-3 py-1 rounded-full border border-[#FDE5D9] inline-block">
+                    {activeFeature.badge}
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0F1012] tracking-tight">
+                    {activeFeature.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-[#F05A28] font-semibold">
+                    {activeFeature.subtitle}
+                  </p>
+                </div>
+
+                <p className="text-sm sm:text-base text-[#52525B] leading-relaxed">
+                  {activeFeature.description}
+                </p>
+
+                {/* Highlights List */}
+                <div className="space-y-3 pt-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#71717A] block">
+                    Key Features:
+                  </span>
+                  <ul className="space-y-2.5">
+                    {activeFeature.highlights.map((point, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#0F1012]">
+                        <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0 mt-0.5" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-4">
+                  <a
+                    href="#waitlist"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold bg-[#0F1012] text-white hover:bg-[#27272A] transition-all text-xs sm:text-sm shadow-md"
+                  >
+                    <span>Get Early Access on Mobile</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Column: Realistic Phone Mockup */}
+              <div className="lg:col-span-6 flex justify-center">
+                <div className="relative w-64 sm:w-72 md:w-80 aspect-[9/18.5] bg-[#0F1012] rounded-[48px] p-3 shadow-2xl shadow-black/20 border-4 border-[#27272A]">
+                  {/* Speaker Ear Notch */}
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 w-20 h-4 bg-[#0F1012] rounded-full z-20 flex items-center justify-center">
+                    <div className="w-10 h-1 bg-[#27272A] rounded-full"></div>
+                  </div>
+
+                  {/* Inner Screen */}
+                  <div className="relative w-full h-full rounded-[38px] overflow-hidden bg-black">
+                    <Image
+                      src={activeFeature.image}
+                      alt={activeFeature.title}
+                      fill
+                      priority
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Thumbnail Strip */}
+            <div className="mt-12 pt-8 border-t border-[#EAEAE6]">
+              <div className="text-xs font-bold uppercase tracking-wider text-[#71717A] mb-4 text-center">
+                All 6 Core App Modules
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                {APP_SCREENSHOT_FEATURES.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setSelectedFeatureId(item.id)}
+                    className={`p-2 rounded-2xl border text-left transition-all cursor-pointer flex flex-col items-center text-center ${
+                      selectedFeatureId === item.id
+                        ? "bg-white border-[#F05A28] shadow-md ring-2 ring-[#F05A28]/20"
+                        : "bg-white/60 border-[#EAEAE6] hover:bg-white"
+                    }`}
+                  >
+                    <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden bg-[#EAEAE6] mb-2">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <span className="text-[11px] font-bold text-[#0F1012] truncate w-full">
+                      {item.title}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Visual Knolling Bento Showcase */}
       <section id="knolling" className="py-24 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -640,113 +847,77 @@ export default function WaitlistPage() {
         </div>
       </section>
 
-      {/* 5. How It Works Section */}
-      <section id="how-it-works" className="py-20 bg-[#F9F9F8] border-y border-[#EAEAE6]">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center max-w-xl mx-auto mb-16">
-            <span className="text-xs uppercase tracking-widest font-bold text-[#F05A28] block mb-2">
-              Three Effortless Steps
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F1012] tracking-tight">
-              From craving to eating in 15 minutes.
-            </h2>
+      {/* 6. From The Blog & Health Journal */}
+      <section className="py-20 bg-[#FAFAF8] border-y border-[#EAEAE6]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+            <div>
+              <span className="text-xs uppercase tracking-widest font-bold text-[#F05A28] block mb-2">
+                Nutrition & Macro Journal
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F1012] tracking-tight">
+                Latest health facts, swaps & science
+              </h2>
+            </div>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#F05A28] hover:underline"
+            >
+              <span>View all articles</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {/* Step 1 */}
-            <div className="bg-white rounded-3xl p-8 border border-[#EAEAE6] space-y-3 relative shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-[#FFF3EE] text-[#F05A28] font-bold text-lg flex items-center justify-center">
-                01
-              </div>
-              <h3 className="text-lg font-bold text-[#0F1012]">Name Your Craving</h3>
-              <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed">
-                Tell Cravey what you want to eat: a Snickers bar, a burger, warm cookies, or iced mocha. Or simply scan the barcode of the junk food in your pantry.
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {BLOG_POSTS.slice(0, 3).map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group flex flex-col justify-between bg-white rounded-3xl border border-[#EAEAE6] overflow-hidden hover:border-[#F05A28]/40 hover:shadow-lg hover:shadow-black/[0.04] transition-all"
+              >
+                <div>
+                  <div className="relative h-44 w-full bg-[#F4F4F0] overflow-hidden">
+                    <Image
+                      src={post.coverImage}
+                      alt={post.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#0F1012]/80 backdrop-blur-md text-white">
+                        {post.category}
+                      </span>
+                    </div>
+                  </div>
 
-            {/* Step 2 */}
-            <div className="bg-white rounded-3xl p-8 border border-[#EAEAE6] space-y-3 relative shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-[#FFF3EE] text-[#F05A28] font-bold text-lg flex items-center justify-center">
-                02
-              </div>
-              <h3 className="text-lg font-bold text-[#0F1012]">Get The Visual Swap</h3>
-              <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed">
-                Cravey matches the flavor and texture profile with a 15-minute high-protein recipe. Exact calorie counts and macros are calculated automatically.
-              </p>
-            </div>
+                  <div className="p-5">
+                    <div className="flex items-center gap-2 text-[11px] text-[#71717A] mb-2">
+                      <Clock className="w-3 h-3 text-[#F05A28]" />
+                      <span>{post.readTime}</span>
+                      <span>·</span>
+                      <span>{post.publishedAt}</span>
+                    </div>
+                    <h3 className="text-base font-bold text-[#0F1012] group-hover:text-[#F05A28] transition-colors leading-snug line-clamp-2 mb-2">
+                      {post.title}
+                    </h3>
+                    <p className="text-xs text-[#52525B] line-clamp-2 leading-relaxed">
+                      {post.summary}
+                    </p>
+                  </div>
+                </div>
 
-            {/* Step 3 */}
-            <div className="bg-white rounded-3xl p-8 border border-[#EAEAE6] space-y-3 relative shadow-sm">
-              <div className="w-12 h-12 rounded-2xl bg-[#FFF3EE] text-[#F05A28] font-bold text-lg flex items-center justify-center">
-                03
-              </div>
-              <h3 className="text-lg font-bold text-[#0F1012]">Crush It Without Guilt</h3>
-              <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed">
-                Eat something that genuinely tastes decadent, hit your daily protein target, and wake up feeling energized instead of sluggish.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 6. Comparison Table: Traditional Dieting vs Cravey */}
-      <section className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center max-w-xl mx-auto mb-16">
-            <span className="text-xs uppercase tracking-widest font-bold text-[#F05A28] block mb-2">
-              Why Willpower Fails
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F1012] tracking-tight">
-              Diets fail at 9 PM. Cravey doesn’t.
-            </h2>
-          </div>
-
-          <div className="overflow-hidden rounded-3xl border border-[#EAEAE6] bg-white shadow-sm">
-            <table className="w-full text-left text-xs sm:text-sm">
-              <thead className="bg-[#FAFAF8] border-b border-[#EAEAE6] text-[#0F1012]">
-                <tr>
-                  <th className="py-4 px-6 font-bold">The Experience</th>
-                  <th className="py-4 px-6 font-bold text-red-500">Traditional Restriction</th>
-                  <th className="py-4 px-6 font-bold text-[#16A34A] bg-[#F0FDF4]">The Cravey Way</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#EAEAE6]">
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-[#0F1012]">When cravings hit</td>
-                  <td className="py-4 px-6 text-[#52525B]">Fight urge with willpower, eventually binge</td>
-                  <td className="py-4 px-6 text-[#0F1012] font-medium bg-[#F0FDF4]/50">
-                    Instant high-protein whole-food swap
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-[#0F1012]">Recipe experience</td>
-                  <td className="py-4 px-6 text-[#52525B]">Walls of text, ads, measuring scales</td>
-                  <td className="py-4 px-6 text-[#0F1012] font-medium bg-[#F0FDF4]/50">
-                    Top-down visual ingredient knolling
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-[#0F1012]">Daily protein goal</td>
-                  <td className="py-4 px-6 text-[#52525B]">Bland dry chicken & chalky protein shakes</td>
-                  <td className="py-4 px-6 text-[#0F1012] font-medium bg-[#F0FDF4]/50">
-                    Desserts that naturally pack 15–40g protein
-                  </td>
-                </tr>
-                <tr>
-                  <td className="py-4 px-6 font-semibold text-[#0F1012]">Grocery planning</td>
-                  <td className="py-4 px-6 text-[#52525B]">Manual notepad lists, wasted ingredients</td>
-                  <td className="py-4 px-6 text-[#0F1012] font-medium bg-[#F0FDF4]/50">
-                    One-tap export to Instacart & Walmart
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                <div className="px-5 pb-5 pt-2 border-t border-[#F0F0EC] flex items-center justify-between text-xs font-bold text-[#F05A28]">
+                  <span>Read Article</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
       {/* 7. FAQ Section */}
-      <section id="faq" className="py-20 bg-[#F9F9F8] border-t border-[#EAEAE6]">
+      <section id="faq" className="py-20 bg-white border-t border-[#EAEAE6]">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest font-bold text-[#F05A28] block mb-2">
@@ -770,6 +941,10 @@ export default function WaitlistPage() {
               {
                 q: "Can I filter for allergies or dietary restrictions?",
                 a: "Absolutely. Cravey allows you to set filters for Gluten-Free, Dairy-Free, Nut-Free, High-Protein / Low-Carb, Vegan, and Sugar-Free swaps.",
+              },
+              {
+                q: "How does the 1-tap social video recipe import work?",
+                a: "Simply share or paste any TikTok, Instagram Reel, or YouTube Shorts link into Cravey. Our AI parses the video caption, extracts exact ingredient quantities, and automatically looks up verified USDA macronutrients.",
               },
               {
                 q: "What happens when I join the waitlist?",
@@ -803,10 +978,16 @@ export default function WaitlistPage() {
       </section>
 
       {/* 8. Bottom Call-to-Action */}
-      <section className="py-20 bg-white border-t border-[#EAEAE6]">
+      <section className="py-20 bg-[#FAFAF8] border-t border-[#EAEAE6]">
         <div className="max-w-4xl mx-auto px-6 text-center space-y-6">
-          <div className="w-12 h-12 rounded-2xl bg-[#F05A28] flex items-center justify-center mx-auto text-white font-bold text-2xl">
-            C
+          <div className="w-14 h-14 rounded-2xl overflow-hidden border border-[#EAEAE6] shadow-sm flex items-center justify-center mx-auto bg-[#F05A28]">
+            <Image
+              src="/app-icon.png"
+              alt="Cravey App Icon"
+              width={56}
+              height={56}
+              className="w-full h-full object-cover"
+            />
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F1012] tracking-tight">
             Stop fighting your cravings. Start swapping them.
@@ -827,7 +1008,7 @@ export default function WaitlistPage() {
       </section>
 
       {/* 9. Minimalist Footer */}
-      <footer className="py-12 bg-[#FAFAF8] border-t border-[#EAEAE6] text-xs text-[#71717A]">
+      <footer className="py-12 bg-white border-t border-[#EAEAE6] text-xs text-[#71717A]">
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="font-bold text-[#0F1012]">Cravey Inc.</span>
@@ -835,12 +1016,15 @@ export default function WaitlistPage() {
             <span>© 2026 Cravey. All rights reserved.</span>
           </div>
           <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-[#0F1012] transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-[#0F1012] transition-colors">
-              Terms of Service
-            </a>
+            <Link href="/" className="hover:text-[#0F1012] transition-colors">
+              Home
+            </Link>
+            <Link href="/blog" className="hover:text-[#0F1012] transition-colors">
+              Blog & Science
+            </Link>
+            <Link href="/sitemap.xml" className="hover:text-[#0F1012] transition-colors">
+              Sitemap.xml
+            </Link>
             <a
               href="mailto:hello@cravey.app"
               className="hover:text-[#0F1012] transition-colors"
