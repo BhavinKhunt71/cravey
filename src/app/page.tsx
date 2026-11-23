@@ -7,7 +7,6 @@ import {
   Sparkles,
   ArrowRight,
   CheckCircle2,
-  Share2,
   Copy,
   Clock,
   Flame,
@@ -15,19 +14,12 @@ import {
   ShieldCheck,
   ChevronDown,
   ChevronUp,
-  ShoppingCart,
-  Zap,
-  Heart,
-  SlidersHorizontal,
   Smartphone,
-  BookOpen,
-  Calendar,
-  Layers,
-  ChefHat,
+  Star,
   Search,
 } from "lucide-react";
 import confetti from "canvas-confetti";
-import { APP_SCREENSHOT_FEATURES, AppScreenshotFeature } from "@/data/appScreenshots";
+import { APP_SCREENSHOT_FEATURES } from "@/data/appScreenshots";
 import { BLOG_POSTS } from "@/data/blogs";
 
 interface CravingSwapItem {
@@ -192,7 +184,7 @@ export default function WaitlistPage() {
             colors: ["#F05A28", "#FF8A65", "#0F1012", "#16A34A"],
           });
         } catch {
-          // ignore if canvas-confetti fails
+          // ignore
         }
       } else {
         setErrorMessage(data.error || "Failed to join. Please try again.");
@@ -251,7 +243,7 @@ export default function WaitlistPage() {
               Visual Recipes
             </a>
             <Link href="/blog" className="hover:text-[#0F1012] transition-colors flex items-center gap-1.5">
-              <span>Blog & Science</span>
+              <span>Recipes & Blog</span>
               <span className="text-[10px] font-bold text-[#F05A28] bg-[#FFF3EE] px-1.5 py-0.5 rounded-full">
                 New
               </span>
@@ -428,7 +420,7 @@ export default function WaitlistPage() {
         </div>
       </section>
 
-      {/* 3. The Interactive Craving Swap Engine (Show, Don't Tell) */}
+      {/* 3. The Interactive Craving Swap Engine */}
       <section id="swaps" className="py-20 bg-[#F9F9F8] border-y border-[#EAEAE6]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
@@ -631,7 +623,7 @@ export default function WaitlistPage() {
         </div>
       </section>
 
-      {/* 4. Inside The App: Showcase with Real Mobile Screenshots */}
+      {/* 4. Inside The App: Showcase with Pixel-Perfect Uncropped Screen Mockup */}
       <section id="app-tour" className="py-24 bg-white border-b border-[#EAEAE6]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -700,7 +692,7 @@ export default function WaitlistPage() {
                   </ul>
                 </div>
 
-                <div className="pt-4">
+                <div className="pt-4 flex flex-wrap items-center gap-3">
                   <a
                     href="#waitlist"
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold bg-[#0F1012] text-white hover:bg-[#27272A] transition-all text-xs sm:text-sm shadow-md"
@@ -708,25 +700,31 @@ export default function WaitlistPage() {
                     <span>Get Early Access on Mobile</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </a>
+                  <Link
+                    href="/blog"
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold bg-white text-[#0F1012] border border-[#EAEAE6] hover:bg-[#F4F4F0] transition-all text-xs sm:text-sm"
+                  >
+                    <span>Browse High-Protein Recipes</span>
+                  </Link>
                 </div>
               </div>
 
-              {/* Right Column: Realistic Phone Mockup */}
+              {/* Right Column: Pixel-Perfect Native Screen Frame (NO CROPPING) */}
               <div className="lg:col-span-6 flex justify-center">
-                <div className="relative w-64 sm:w-72 md:w-80 aspect-[9/18.5] bg-[#0F1012] rounded-[48px] p-3 shadow-2xl shadow-black/20 border-4 border-[#27272A]">
-                  {/* Speaker Ear Notch */}
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 w-20 h-4 bg-[#0F1012] rounded-full z-20 flex items-center justify-center">
-                    <div className="w-10 h-1 bg-[#27272A] rounded-full"></div>
+                <div className="relative w-64 sm:w-72 md:w-[320px] bg-[#0F1012] rounded-[48px] p-3 shadow-2xl shadow-black/20 border-4 border-[#27272A]">
+                  {/* Dynamic Island / Speaker Pill */}
+                  <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-5 bg-[#0F1012] rounded-full z-20 flex items-center justify-center">
+                    <div className="w-10 h-1.5 bg-[#27272A] rounded-full"></div>
                   </div>
 
-                  {/* Inner Screen */}
-                  <div className="relative w-full h-full rounded-[38px] overflow-hidden bg-black">
+                  {/* Inner Screen: Exact 1290x2796 aspect ratio with uncropped full fit */}
+                  <div className="relative w-full aspect-[1290/2796] rounded-[38px] overflow-hidden bg-black">
                     <Image
                       src={activeFeature.image}
                       alt={activeFeature.title}
                       fill
                       priority
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
                 </div>
@@ -736,9 +734,9 @@ export default function WaitlistPage() {
             {/* Thumbnail Strip */}
             <div className="mt-12 pt-8 border-t border-[#EAEAE6]">
               <div className="text-xs font-bold uppercase tracking-wider text-[#71717A] mb-4 text-center">
-                All 6 Core App Modules
+                All 7 Core App Modules (Tap to preview)
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
                 {APP_SCREENSHOT_FEATURES.map((item) => (
                   <button
                     key={item.id}
@@ -749,12 +747,12 @@ export default function WaitlistPage() {
                         : "bg-white/60 border-[#EAEAE6] hover:bg-white"
                     }`}
                   >
-                    <div className="relative w-full aspect-[9/16] rounded-xl overflow-hidden bg-[#EAEAE6] mb-2">
+                    <div className="relative w-full aspect-[1290/2796] rounded-xl overflow-hidden bg-[#EAEAE6] mb-2">
                       <Image
                         src={item.image}
                         alt={item.title}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
                     <span className="text-[11px] font-bold text-[#0F1012] truncate w-full">
@@ -786,9 +784,9 @@ export default function WaitlistPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Bento Card 1 */}
             <div className="bg-[#FAFAF8] rounded-3xl p-6 sm:p-8 border border-[#EAEAE6] space-y-4 hover:border-[#F05A28]/40 transition-colors">
-              <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white border border-[#EAEAE6]">
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-white border border-[#EAEAE6]">
                 <Image
-                  src="/images/snickers-dates-knolling.jpg"
+                  src="/images/snickers-dates-hero.jpg"
                   alt="Flat-lay knolled ingredients"
                   fill
                   className="object-cover"
@@ -806,7 +804,7 @@ export default function WaitlistPage() {
 
             {/* Bento Card 2 */}
             <div className="bg-[#FAFAF8] rounded-3xl p-6 sm:p-8 border border-[#EAEAE6] space-y-4 hover:border-[#F05A28]/40 transition-colors">
-              <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white border border-[#EAEAE6]">
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-white border border-[#EAEAE6]">
                 <Image
                   src="/images/candy-snacks-cover.jpg"
                   alt="Candy taste swaps"
@@ -826,10 +824,10 @@ export default function WaitlistPage() {
 
             {/* Bento Card 3 */}
             <div className="bg-[#FAFAF8] rounded-3xl p-6 sm:p-8 border border-[#EAEAE6] space-y-4 hover:border-[#F05A28]/40 transition-colors">
-              <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white border border-[#EAEAE6]">
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-white border border-[#EAEAE6]">
                 <Image
-                  src="/images/baked-oats-knolling.jpg"
-                  alt="Baked oats knolling"
+                  src="/images/high-protein-tacos-hero.jpg"
+                  alt="High-protein meal swaps"
                   fill
                   className="object-cover"
                 />
@@ -839,7 +837,7 @@ export default function WaitlistPage() {
                   3. 1-Tap Grocery Cart Sync
                 </h3>
                 <p className="text-xs sm:text-sm text-[#52525B] leading-relaxed">
-                  Found a craving swap you love? Export all 5 ingredients directly into Instacart or Walmart in a single click. No manual grocery lists.
+                  Found a craving swap you love? Export all ingredients directly into Instacart or supermarket delivery in a single click.
                 </p>
               </div>
             </div>
@@ -847,7 +845,7 @@ export default function WaitlistPage() {
         </div>
       </section>
 
-      {/* 6. From The Blog & Health Journal */}
+      {/* 6. From The Blog & Health Journal (Using Fresh 16:9 Gourmet Images) */}
       <section className="py-20 bg-[#FAFAF8] border-y border-[#EAEAE6]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
@@ -856,14 +854,14 @@ export default function WaitlistPage() {
                 Nutrition & Macro Journal
               </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F1012] tracking-tight">
-                Latest health facts, swaps & science
+                Latest health facts, swaps & recipes
               </h2>
             </div>
             <Link
               href="/blog"
               className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#F05A28] hover:underline"
             >
-              <span>View all articles</span>
+              <span>Explore all recipes & guides</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -876,7 +874,8 @@ export default function WaitlistPage() {
                 className="group flex flex-col justify-between bg-white rounded-3xl border border-[#EAEAE6] overflow-hidden hover:border-[#F05A28]/40 hover:shadow-lg hover:shadow-black/[0.04] transition-all"
               >
                 <div>
-                  <div className="relative h-44 w-full bg-[#F4F4F0] overflow-hidden">
+                  {/* 16:9 Landscape Food Photo - Never Cropped */}
+                  <div className="relative aspect-[16/9] w-full bg-[#F4F4F0] overflow-hidden">
                     <Image
                       src={post.coverImage}
                       alt={post.title}
@@ -907,7 +906,7 @@ export default function WaitlistPage() {
                 </div>
 
                 <div className="px-5 pb-5 pt-2 border-t border-[#F0F0EC] flex items-center justify-between text-xs font-bold text-[#F05A28]">
-                  <span>Read Article</span>
+                  <span>View Recipe & Macros</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
@@ -1007,7 +1006,7 @@ export default function WaitlistPage() {
         </div>
       </section>
 
-      {/* 9. Minimalist Footer */}
+      {/* 9. Minimalist Footer (Cleaned: Sitemap removed per user request) */}
       <footer className="py-12 bg-white border-t border-[#EAEAE6] text-xs text-[#71717A]">
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
@@ -1020,11 +1019,11 @@ export default function WaitlistPage() {
               Home
             </Link>
             <Link href="/blog" className="hover:text-[#0F1012] transition-colors">
-              Blog & Science
+              Recipes & Guides
             </Link>
-            <Link href="/sitemap.xml" className="hover:text-[#0F1012] transition-colors">
-              Sitemap.xml
-            </Link>
+            <a href="#app-tour" className="hover:text-[#0F1012] transition-colors">
+              App Features
+            </a>
             <a
               href="mailto:hello@cravey.app"
               className="hover:text-[#0F1012] transition-colors"
