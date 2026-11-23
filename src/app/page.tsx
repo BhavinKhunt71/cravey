@@ -137,8 +137,49 @@ export default function HomePage() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  const jsonLdApp = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Cravey",
+    operatingSystem: "iOS, Android",
+    applicationCategory: "HealthApplication",
+    description:
+      "Transform late-night junk food and sweet cravings into 15-minute, high-protein visual recipes with USDA verified macros.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      ratingCount: "162",
+      bestRating: "5",
+    },
+    installUrl: [APP_STORE_URL, PLAY_STORE_URL],
+  };
+
+  const jsonLdOrg = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Cravey",
+    url: "https://cravey.app",
+    logo: "https://cravey.app/app-icon.png",
+    sameAs: [APP_STORE_URL, PLAY_STORE_URL],
+  };
+
   return (
     <div className="min-h-screen bg-white text-[#0F1012] selection:bg-[#FFE3D6] selection:text-[#C4380A]">
+      {/* Schema.org Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdApp) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }}
+      />
+
       {/* 1. Header Navigation */}
       <Navbar currentPath="/" />
 

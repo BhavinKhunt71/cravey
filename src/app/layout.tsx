@@ -10,6 +10,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://cravey.app"),
+  alternates: {
+    canonical: "./",
+  },
   title: "Cravey — Satisfy Sweet Cravings Without Breaking Your Macros",
   description:
     "Cravey turns late-night junk food and sweet cravings into 15-minute, high-protein visual recipes. Top-down knolled ingredients, exact macros, zero guilt.",

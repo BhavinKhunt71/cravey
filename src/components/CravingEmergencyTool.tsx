@@ -183,9 +183,9 @@ export default function CravingEmergencyTool() {
               <span className="text-xs font-bold text-red-500">Traditional Junk</span>
             </div>
 
-            <h4 className="text-xl sm:text-2xl font-extrabold text-[#0F1012] mb-1">
+            <h3 className="text-xl sm:text-2xl font-extrabold text-[#0F1012] mb-1">
               {current.junkTitle}
-            </h4>
+            </h3>
 
             {/* Metrics */}
             <div className="grid grid-cols-3 gap-2 my-5 text-center bg-white rounded-xl p-3 border border-red-100">
@@ -234,9 +234,9 @@ export default function CravingEmergencyTool() {
               </span>
             </div>
 
-            <h4 className="text-2xl sm:text-3xl font-extrabold text-[#0F1012] mb-2">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0F1012] mb-2">
               {current.swapTitle}
-            </h4>
+            </h3>
 
             {/* Winning Metrics */}
             <div className="grid grid-cols-3 gap-2 my-5 text-center bg-[#F0FDF4] rounded-xl p-3 border border-emerald-100">

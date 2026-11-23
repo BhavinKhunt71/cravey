@@ -1,0 +1,24 @@
+# Cravey
+
+> Cravey is a mobile nutrition and recipe application for iOS and Android that transforms late-night junk food cravings and sweets into 15-minute, high-protein whole-food visual recipes.
+
+## Core Resources
+
+- [Cravey Homepage](https://cravey.app/): Overview of Cravey craving swaps, visual ingredient knolling, and guided cook mode.
+- [High-Protein Recipes & Nutrition Journal](https://cravey.app/blog/): Chef-tested macro recipes, USDA-verified nutrition facts, and nighttime satiety science.
+- [Apple App Store Download](https://apps.apple.com/app/id6829174927): Official iOS application with 1-tap social video recipe import.
+- [Google Play Store Download](https://play.google.com/store/apps/details?id=com.cravey.mealprep): Official Android application for meal planning and automatic grocery lists.
+
+## Top High-Protein Craving Recipes
+
+- [High-Protein Sweet Snacks That Taste Like Real Candy](https://cravey.app/blog/high-protein-sweet-snacks-healthy-candy-alternatives): 7 candy-dupe snacks with 14g-35g clean protein and zero refined sugar.
+- [High-Protein Street Tacos (42g Protein)](https://cravey.app/blog/high-protein-street-tacos): Crispy shredded chicken tacos with avocado crema under 320 calories.
+- [High-Protein Sweet Craving Swaps (Snickers Dates)](https://cravey.app/blog/high-protein-sweet-craving-swaps): Frozen peanut butter stuffed Medjool dates with 85% dark cacao.
+- [The Science of 9 PM Late-Night Cravings](https://cravey.app/blog/science-of-late-night-cravings): How neurochemical dopamine depletion triggers binging and why whole-food swaps solve it.
+
+## Key Features
+
+- **1-Tap Social Video Import**: Paste TikTok, Instagram Reels, or YouTube Shorts links; Cravey's AI extracts ingredients and calculates exact calories and macros.
+- **Top-Down Ingredient Knolling**: Flat-lay photography with exact measured ingredients before cooking begins.
+- **Interactive Scalable Recipe Cards**: Dynamic serving portion adjustment (1x-4x) with built-in kitchen countdown timers.
+- **Smart Grocery List**: Automatic consolidation of recipe ingredients sorted by supermarket aisle, with 1-tap export to Instacart or Walmart.
