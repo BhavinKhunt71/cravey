@@ -17,6 +17,7 @@ import {
   Star,
 } from "lucide-react";
 import StoreButtons, { APP_STORE_URL } from "@/components/StoreButtons";
+import Navbar from "@/components/Navbar";
 import { BLOG_POSTS, BlogPost } from "@/data/blogs";
 
 const CATEGORIES = [
@@ -58,53 +59,7 @@ export default function BlogIndexPage() {
   return (
     <div className="min-h-screen bg-white text-[#0F1012] selection:bg-[#FFE3D6] selection:text-[#C4380A]">
       {/* 1. Header Navigation */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#EAEAE6]">
-        <div className="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-2xl overflow-hidden border border-[#EAEAE6] shadow-sm flex items-center justify-center bg-[#F05A28]">
-              <Image
-                src="/app-icon.png"
-                alt="Cravey App Icon"
-                width={40}
-                height={40}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight text-[#0F1012] group-hover:text-[#F05A28] transition-colors">
-                Cravey
-              </span>
-              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#F05A28] -mt-1">
-                Recipes & Macro Journal
-              </span>
-            </div>
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#52525B]">
-            <Link href="/" className="hover:text-[#0F1012] transition-colors">
-              App Overview
-            </Link>
-            <Link href="/#app-tour" className="hover:text-[#0F1012] transition-colors">
-              App Tour
-            </Link>
-            <Link href="/blog" className="text-[#F05A28] font-bold">
-              Recipes & Guides
-            </Link>
-            <Link href="/#faq" className="hover:text-[#0F1012] transition-colors">
-              FAQ
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href="/#download"
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#0F1012] text-white hover:bg-[#27272A] transition-colors"
-            >
-              Download App
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Navbar currentPath="/blog" />
 
       {/* 2. Blog Header Hero */}
       <section className="pt-14 pb-12 bg-[#FAFAF8] border-b border-[#EAEAE6]">

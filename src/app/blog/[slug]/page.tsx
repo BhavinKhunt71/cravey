@@ -19,6 +19,7 @@ import {
 import { BLOG_POSTS } from "@/data/blogs";
 import InteractiveRecipeCard from "@/components/InteractiveRecipeCard";
 import StoreButtons from "@/components/StoreButtons";
+import Navbar from "@/components/Navbar";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -185,59 +186,7 @@ export default async function BlogPostPage({ params }: Props) {
       )}
 
       {/* 1. Sticky Nav */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#EAEAE6]">
-        <div className="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-2xl overflow-hidden border border-[#EAEAE6] shadow-sm flex items-center justify-center bg-[#F05A28]">
-              <Image
-                src="/app-icon.png"
-                alt="Cravey App Icon"
-                width={40}
-                height={40}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight text-[#0F1012] group-hover:text-[#F05A28] transition-colors">
-                Cravey
-              </span>
-              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#F05A28] -mt-1">
-                Recipes & Guides
-              </span>
-            </div>
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#52525B]">
-            <Link href="/" className="hover:text-[#0F1012] transition-colors">
-              App Overview
-            </Link>
-            <Link href="/blog" className="text-[#F05A28] font-bold">
-              All Recipes
-            </Link>
-            <Link href="/#app-tour" className="hover:text-[#0F1012] transition-colors">
-              App Tour
-            </Link>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            {post.recipeCard && (
-              <a
-                href="#recipe-card"
-                className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FFF3EE] text-[#F05A28] border border-[#FDE5D9] hover:bg-[#FFE8DE] transition-colors"
-              >
-                <ArrowDownCircle className="w-3.5 h-3.5" />
-                <span>Jump to Recipe</span>
-              </a>
-            )}
-            <Link
-              href="/#download"
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#0F1012] text-white hover:bg-[#27272A] transition-colors"
-            >
-              Download App
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Navbar currentPath="/blog" />
 
       {/* 2. Article Header & Hero */}
       <article className="max-w-4xl mx-auto px-6 pt-10 pb-20">
@@ -275,6 +224,13 @@ export default async function BlogPostPage({ params }: Props) {
                 <span className="text-xs font-bold text-green-700 bg-green-50 px-2.5 py-0.5 rounded-full border border-green-200">
                   {post.recipeCard.protein}g Protein · {post.recipeCard.calories} kcal
                 </span>
+                <a
+                  href="#recipe-card"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#F05A28] text-white hover:bg-[#C4380A] shadow-sm transition-all sm:ml-auto"
+                >
+                  <ArrowDownCircle className="w-3.5 h-3.5" />
+                  <span>Jump to Recipe</span>
+                </a>
               </>
             )}
           </div>

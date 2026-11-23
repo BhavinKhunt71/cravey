@@ -16,8 +16,12 @@ import {
   Smartphone,
   Star,
   Download,
+  AlertTriangle,
+  Zap,
 } from "lucide-react";
 import StoreButtons, { APP_STORE_URL, PLAY_STORE_URL } from "@/components/StoreButtons";
+import Navbar from "@/components/Navbar";
+import CravingEmergencyTool from "@/components/CravingEmergencyTool";
 import { APP_SCREENSHOT_FEATURES } from "@/data/appScreenshots";
 import { BLOG_POSTS } from "@/data/blogs";
 
@@ -136,69 +140,12 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-[#0F1012] selection:bg-[#FFE3D6] selection:text-[#C4380A]">
       {/* 1. Header Navigation */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#EAEAE6]">
-        <div className="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-2xl overflow-hidden border border-[#EAEAE6] shadow-sm flex items-center justify-center bg-[#F05A28]">
-              <Image
-                src="/app-icon.png"
-                alt="Cravey Icon"
-                width={40}
-                height={40}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight text-[#0F1012] group-hover:text-[#F05A28] transition-colors">
-                Cravey
-              </span>
-              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#F05A28] -mt-1">
-                Craving Swaps
-              </span>
-            </div>
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#52525B]">
-            <a href="#swaps" className="hover:text-[#0F1012] transition-colors">
-              The Swaps
-            </a>
-            <a href="#app-tour" className="hover:text-[#0F1012] transition-colors">
-              App Tour
-            </a>
-            <a href="#knolling" className="hover:text-[#0F1012] transition-colors">
-              Visual Recipes
-            </a>
-            <Link href="/blog" className="hover:text-[#0F1012] transition-colors flex items-center gap-1.5">
-              <span>Recipes & Blog</span>
-              <span className="text-[10px] font-bold text-[#F05A28] bg-[#FFF3EE] px-1.5 py-0.5 rounded-full">
-                New
-              </span>
-            </Link>
-            <a href="#faq" className="hover:text-[#0F1012] transition-colors">
-              FAQ
-            </a>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#F0FDF4] text-[#16A34A] border border-[#DCFCE7]">
-              <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse"></span>
-              Live on App Store & Play Store
-            </span>
-            <a
-              href="#download"
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#0F1012] text-white hover:bg-[#27272A] transition-colors flex items-center gap-1.5"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Download App</span>
-            </a>
-          </div>
-        </div>
-      </header>
+      <Navbar currentPath="/" />
 
       {/* 2. Hero Section */}
       <section
         id="download"
-        className="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden bg-gradient-to-b from-[#FAFAF8] via-white to-white"
+        className="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden bg-gradient-to-b from-[#FAFAF8] via-white to-white scroll-mt-20"
       >
         <div className="max-w-4xl mx-auto px-6 text-center">
           {/* Badge */}
@@ -275,8 +222,148 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 2.5. The Interactive Craving Panic Simulator */}
+      <section className="py-12 -mt-8 relative z-20 max-w-6xl mx-auto px-4 sm:px-6">
+        <CravingEmergencyTool />
+      </section>
+
+      {/* 2.6. The Emotional Controversy: Death of Diet Culture */}
+      <section
+        id="controversy"
+        className="py-24 bg-[#0F1012] text-white border-y border-[#27272A] scroll-mt-20 relative overflow-hidden"
+      >
+        {/* Subtle decorative glowing background */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#F05A28]/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-black tracking-wider uppercase bg-[#F05A28]/20 text-[#F05A28] border border-[#F05A28]/40 mb-4">
+              <Flame className="w-3.5 h-3.5 text-[#F05A28]" />
+              <span>The 9 PM Biological Reality</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight mb-6">
+              Diet culture lied to you.{" "}
+              <span className="text-[#F05A28] block sm:inline">
+                Willpower is not why you binge.
+              </span>
+            </h2>
+            <p className="text-base sm:text-lg text-[#A1A1AA] leading-relaxed">
+              When fitness gurus tell you to &ldquo;drink a glass of water&rdquo; or &ldquo;chew celery&rdquo; when your brain screams for chocolate at 9 PM, they are committing biological malpractice.
+            </p>
+          </div>
+
+          {/* High-Impact Side-by-Side Comparison Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-16">
+            {/* Left: The Diet Culture Trap */}
+            <div className="bg-[#18181B] rounded-3xl p-6 sm:p-8 border border-red-500/20 relative flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-[#27272A] mb-6">
+                  <span className="text-xs uppercase font-black tracking-widest text-red-400 bg-red-950/60 px-3 py-1 rounded-full border border-red-800/40">
+                    ❌ The Toxic Diet Trap
+                  </span>
+                  <span className="text-xs text-[#71717A] font-semibold">94% Failure Rate</span>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex gap-3">
+                    <span className="text-red-400 font-mono text-xs font-bold shrink-0 mt-0.5">7:00 PM</span>
+                    <p className="text-sm text-[#D4D4D8]">
+                      You eat plain steamed broccoli and dry chicken breast. Zero sensory satisfaction.
+                    </p>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-red-400 font-mono text-xs font-bold shrink-0 mt-0.5">8:45 PM</span>
+                    <p className="text-sm text-[#D4D4D8]">
+                      Your dopamine drops. Ghrelin spikes. Your brain sounds the emergency alarm for fat and sugar.
+                    </p>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-red-400 font-mono text-xs font-bold shrink-0 mt-0.5">9:30 PM</span>
+                    <p className="text-sm text-[#D4D4D8]">
+                      Your prefrontal discipline fatigues. You stand in the pantry and inhale 1,200 calories of cookies, peanut butter, or cereal.
+                    </p>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-red-400 font-mono text-xs font-bold shrink-0 mt-0.5">Next AM</span>
+                    <p className="text-sm text-red-300 font-semibold">
+                      Bloated face, heavy guilt, self-hatred, and another &ldquo;failed diet&rdquo;.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-4 border-t border-[#27272A] text-xs text-[#71717A] flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-red-400 shrink-0" />
+                <span>Starvation triggers hyper-focus on forbidden calorie-dense foods.</span>
+              </div>
+            </div>
+
+            {/* Right: The Cravey Protocol */}
+            <div className="bg-[#18181B] rounded-3xl p-6 sm:p-8 border-2 border-[#F05A28] relative flex flex-col justify-between shadow-2xl shadow-orange-950/30">
+              <div className="absolute top-0 right-0 bg-[#F05A28] text-white text-[10px] font-black uppercase px-3.5 py-1 rounded-bl-2xl tracking-wider">
+                ⚡ The Dopamine Hack
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-[#27272A] mb-6">
+                  <span className="text-xs uppercase font-black tracking-widest text-[#F05A28] bg-orange-950/60 px-3 py-1 rounded-full border border-orange-800/40">
+                    ✓ The Cravey Protocol
+                  </span>
+                  <span className="text-xs text-[#16A34A] font-bold">100% Sustainable</span>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex gap-3">
+                    <span className="text-[#F05A28] font-mono text-xs font-bold shrink-0 mt-0.5">7:00 PM</span>
+                    <p className="text-sm text-[#E4E4E7]">
+                      You eat a high-flavor dinner with rich spices, texture, and proper seasoning.
+                    </p>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-[#F05A28] font-mono text-xs font-bold shrink-0 mt-0.5">8:45 PM</span>
+                    <p className="text-sm text-[#E4E4E7]">
+                      Your brain demands a sweet candy bar, bakery cake, or creamy dessert.
+                    </p>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-[#F05A28] font-mono text-xs font-bold shrink-0 mt-0.5">9:00 PM</span>
+                    <p className="text-sm text-[#E4E4E7]">
+                      You make Cravey&apos;s 10-minute Frozen Snickers Dates or Chocolate Lava Fluff (34g protein, zero refined sugar).
+                    </p>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-[#16A34A] font-mono text-xs font-bold shrink-0 mt-0.5">Next AM</span>
+                    <p className="text-sm text-[#4ADE80] font-semibold">
+                      Dopamine fully satisfied, 30g+ protein delivered to repair muscle, waking up lean.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-4 border-t border-[#27272A] text-xs text-[#4ADE80] flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0" />
+                <span>Zero food guilt. Your body burns the clean protein during sleep.</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Controversial Quote Banner */}
+          <div className="bg-gradient-to-r from-[#18181B] via-[#27272A] to-[#18181B] rounded-3xl p-8 sm:p-10 border border-[#3F3F46] text-center max-w-4xl mx-auto space-y-6">
+            <blockquote className="text-lg sm:text-2xl font-bold tracking-tight text-white leading-relaxed">
+              &ldquo;You do not have a willpower deficiency. You have a protein and dopamine mismatch. Stop starving your cravings&mdash;outsmart them.&rdquo;
+            </blockquote>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+              <span className="text-xs text-[#A1A1AA] uppercase tracking-wider font-semibold">
+                Available Now on Both Stores:
+              </span>
+              <StoreButtons variant="dark" size="sm" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 3. The Interactive Craving Swap Engine */}
-      <section id="swaps" className="py-20 bg-[#F9F9F8] border-y border-[#EAEAE6]">
+      <section id="swaps" className="py-20 bg-[#F9F9F8] border-y border-[#EAEAE6] scroll-mt-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs uppercase tracking-widest font-bold text-[#F05A28] block mb-2">
@@ -479,7 +566,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. Inside The App: Showcase with Pixel-Perfect Uncropped Screen Mockup */}
-      <section id="app-tour" className="py-24 bg-white border-b border-[#EAEAE6]">
+      <section id="app-tour" className="py-24 bg-white border-b border-[#EAEAE6] scroll-mt-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#FFF3EE] text-[#F05A28] border border-[#FDE5D9] mb-3">
@@ -610,7 +697,7 @@ export default function HomePage() {
       </section>
 
       {/* 5. Visual Knolling Bento Showcase */}
-      <section id="knolling" className="py-24 bg-white">
+      <section id="knolling" className="py-24 bg-white scroll-mt-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs uppercase tracking-widest font-bold text-[#F05A28] block mb-2">
@@ -758,7 +845,7 @@ export default function HomePage() {
       </section>
 
       {/* 7. FAQ Section */}
-      <section id="faq" className="py-20 bg-white border-t border-[#EAEAE6]">
+      <section id="faq" className="py-20 bg-white border-t border-[#EAEAE6] scroll-mt-20">
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-12">
             <span className="text-xs uppercase tracking-widest font-bold text-[#F05A28] block mb-2">
