@@ -1,0 +1,74 @@
+[
+  {
+    "id": "kw-001",
+    "keyword": "healthy candy alternatives",
+    "searchVolumeUS": "100 - 1k",
+    "competition": "High",
+    "status": "published",
+    "publishedUrl": "https://cravey-omega.vercel.app/blog/high-protein-sweet-snacks-healthy-candy-alternatives",
+    "publishedAt": "2026-11-23"
+  },
+  {
+    "id": "kw-002",
+    "keyword": "high protein low calorie snacks",
+    "searchVolumeUS": "1k - 10k",
+    "competition": "High",
+    "status": "pending",
+    "targetRecipe": "Crispy Air Fryer Parmesan Edamame & Cottage Cheese Dip",
+    "primaryIntent": "Quick grab-and-go savory snack under 150 calories with 20g protein"
+  },
+  {
+    "id": "kw-003",
+    "keyword": "low calorie protein bars",
+    "searchVolumeUS": "1k - 10k",
+    "competition": "High",
+    "status": "pending",
+    "targetRecipe": "No-Bake Fudge Brownie Protein Bars (Store-bought Bar Dupe)",
+    "primaryIntent": "Homemade no-bake chocolate fudge bars with 18g protein and 120 calories"
+  },
+  {
+    "id": "kw-004",
+    "keyword": "high protein meals for weight loss",
+    "searchVolumeUS": "10k - 100k",
+    "competition": "High",
+    "status": "pending",
+    "targetRecipe": "20-Minute Sheet Pan Honey Chipotle Chicken Bowls",
+    "primaryIntent": "High volume meal prep bowls with 45g protein and under 380 calories"
+  },
+  {
+    "id": "kw-005",
+    "keyword": "healthy snacks for late night cravings",
+    "searchVolumeUS": "1k - 10k",
+    "competition": "Medium",
+    "status": "pending",
+    "targetRecipe": "Warm Cinnamon Apple Protein Crisp Skillet",
+    "primaryIntent": "Warm comfort food dessert to curb 10 PM refrigerator raiding"
+  },
+  {
+    "id": "kw-006",
+    "keyword": "easy high protein meals",
+    "searchVolumeUS": "10k - 100k",
+    "competition": "Medium",
+    "status": "pending",
+    "targetRecipe": "15-Minute Creamy Garlic Parmesan Ground Turkey Skillet",
+    "primaryIntent": "One-pan dinner ready in 15 minutes with 40g protein"
+  },
+  {
+    "id": "kw-007",
+    "keyword": "high protein sweet snacks",
+    "searchVolumeUS": "100 - 1k",
+    "competition": "High",
+    "status": "pending",
+    "targetRecipe": "Greek Yogurt Chocolate Chip Cookie Dough Bowl",
+    "primaryIntent": "Edible raw cookie dough with Greek yogurt and vanilla isolate"
+  },
+  {
+    "id": "kw-008",
+    "keyword": "high protein vegetarian meals",
+    "searchVolumeUS": "10k - 100k",
+    "competition": "Medium",
+    "status": "pending",
+    "targetRecipe": "Crispy Buffalo Tofu Protein Wraps",
+    "primaryIntent": "High protein plant-based dinner with 32g protein"
+  }
+]
