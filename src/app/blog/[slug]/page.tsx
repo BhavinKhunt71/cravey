@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { BLOG_POSTS } from "@/data/blogs";
 import InteractiveRecipeCard from "@/components/InteractiveRecipeCard";
+import StoreButtons from "@/components/StoreButtons";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -229,10 +230,10 @@ export default async function BlogPostPage({ params }: Props) {
               </a>
             )}
             <Link
-              href="/#waitlist"
+              href="/#download"
               className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#0F1012] text-white hover:bg-[#27272A] transition-colors"
             >
-              Get Free App
+              Download App
             </Link>
           </div>
         </div>
@@ -455,7 +456,7 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
           <div className="space-y-2">
             <span className="text-xs uppercase tracking-widest font-bold text-[#F05A28]">
-              Cravey on Mobile
+              Now Live on iOS & Android
             </span>
             <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
               Get 150+ guilt-free craving swaps on your phone.
@@ -464,14 +465,8 @@ export default async function BlogPostPage({ params }: Props) {
               Cravey calculates macros, scales portions, generates aisle-sorted grocery lists, and lets you import TikTok & Instagram reels in 1 tap.
             </p>
           </div>
-          <div>
-            <Link
-              href="/#waitlist"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold bg-[#F05A28] text-white hover:bg-[#DE5227] transition-all shadow-md text-sm"
-            >
-              <span>Join the Free Launch Waitlist</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+          <div className="pt-2">
+            <StoreButtons variant="light" size="lg" className="justify-start" />
           </div>
         </div>
 

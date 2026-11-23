@@ -430,7 +430,7 @@ export const BLOG_POSTS: BlogPost[] = [
     deepLinks: [
       { text: "Try our top-rated Snickers Date recipe to satisfy sweet urges", url: "/blog/high-protein-sweet-craving-swaps", context: "recipe" },
       { text: "Keep dinner high-protein with our 42g Protein Crispy Street Tacos", url: "/blog/high-protein-street-tacos", context: "dinner recipe" },
-      { text: "Join the Cravey waitlist for weekly scientific craving swap cards", url: "/#waitlist", context: "waitlist" },
+      { text: "Download Cravey on iOS & Android for daily recipe swaps", url: "/#download", context: "download" },
     ],
     faq: [
       {
@@ -486,7 +486,7 @@ export const BLOG_POSTS: BlogPost[] = [
     deepLinks: [
       { text: "See how Cravey's 1-Tap Social Import works in the App Tour", url: "/#app-tour", context: "app feature" },
       { text: "Explore our chef-tested High-Protein Street Tacos recipe", url: "/blog/high-protein-street-tacos", context: "taco recipe" },
-      { text: "Get early access to Cravey's recipe import engine", url: "/#waitlist", context: "waitlist" },
+      { text: "Download Cravey now to start converting viral reels", url: "/#download", context: "download" },
     ],
     faq: [
       {

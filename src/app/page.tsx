@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
   Sparkles,
   ArrowRight,
   CheckCircle2,
-  Copy,
   Clock,
   Flame,
   Dumbbell,
@@ -16,9 +15,9 @@ import {
   ChevronUp,
   Smartphone,
   Star,
-  Search,
+  Download,
 } from "lucide-react";
-import confetti from "canvas-confetti";
+import StoreButtons, { APP_STORE_URL, PLAY_STORE_URL } from "@/components/StoreButtons";
 import { APP_SCREENSHOT_FEATURES } from "@/data/appScreenshots";
 import { BLOG_POSTS } from "@/data/blogs";
 
@@ -115,17 +114,9 @@ const SWAP_DATABASE: CravingSwapItem[] = [
   },
 ];
 
-export default function WaitlistPage() {
-  const [email, setEmail] = useState("");
+export default function HomePage() {
   const [selectedCraving, setSelectedCraving] = useState<string>("snickers");
   const [selectedFeatureId, setSelectedFeatureId] = useState<string>(APP_SCREENSHOT_FEATURES[0].id);
-  const [loading, setLoading] = useState(false);
-  const [joined, setJoined] = useState(false);
-  const [queuePosition, setQueuePosition] = useState<number | null>(null);
-  const [referralLink, setReferralLink] = useState("");
-  const [copied, setCopied] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [totalWaitlistCount, setTotalWaitlistCount] = useState(1428);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Active swap preview
@@ -137,71 +128,6 @@ export default function WaitlistPage() {
   const activeFeature =
     APP_SCREENSHOT_FEATURES.find((f) => f.id === selectedFeatureId) ||
     APP_SCREENSHOT_FEATURES[0];
-
-  useEffect(() => {
-    // Fetch live waitlist counter
-    fetch("/api/waitlist")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.totalCount) setTotalWaitlistCount(data.totalCount);
-      })
-      .catch(() => {});
-  }, []);
-
-  const handleJoinWaitlist = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !email.includes("@")) {
-      setErrorMessage("Please enter a valid email address.");
-      return;
-    }
-
-    setLoading(true);
-    setErrorMessage("");
-
-    try {
-      const res = await fetch("/api/waitlist", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          craving: currentSwap.cravingName,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (res.ok) {
-        setJoined(true);
-        setQueuePosition(data.position || 1429);
-        setReferralLink(data.referralLink || `https://cravey.app?ref=${encodeURIComponent(email)}`);
-
-        // Confetti celebration
-        try {
-          confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ["#F05A28", "#FF8A65", "#0F1012", "#16A34A"],
-          });
-        } catch {
-          // ignore
-        }
-      } else {
-        setErrorMessage(data.error || "Failed to join. Please try again.");
-      }
-    } catch {
-      setErrorMessage("Connection error. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const copyReferral = () => {
-    if (!referralLink) return;
-    navigator.clipboard.writeText(referralLink);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2400);
-  };
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
@@ -254,15 +180,16 @@ export default function WaitlistPage() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#F4F4F0] text-[#52525B]">
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#F0FDF4] text-[#16A34A] border border-[#DCFCE7]">
               <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse"></span>
-              iOS & Android
+              Live on App Store & Play Store
             </span>
             <a
-              href="#waitlist"
-              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#0F1012] text-white hover:bg-[#27272A] transition-colors"
+              href="#download"
+              className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#0F1012] text-white hover:bg-[#27272A] transition-colors flex items-center gap-1.5"
             >
-              Join Waitlist
+              <Download className="w-3.5 h-3.5" />
+              <span>Download App</span>
             </a>
           </div>
         </div>
@@ -270,14 +197,14 @@ export default function WaitlistPage() {
 
       {/* 2. Hero Section */}
       <section
-        id="waitlist"
+        id="download"
         className="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden bg-gradient-to-b from-[#FAFAF8] via-white to-white"
       >
         <div className="max-w-4xl mx-auto px-6 text-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#FFF3EE] text-[#F05A28] border border-[#FDE5D9] mb-8">
             <Sparkles className="w-3.5 h-3.5 text-[#F05A28]" />
-            <span>The Guilt-Free Craving Swap Engine</span>
+            <span>Now Available on iOS & Android</span>
           </div>
 
           {/* Headline */}
@@ -294,122 +221,50 @@ export default function WaitlistPage() {
             high-protein visual recipes. Zero bland diet food. Zero food guilt.
           </p>
 
-          {/* Waitlist Capture Card */}
-          <div className="max-w-lg mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-[#EAEAE6] shadow-xl shadow-black/[0.03]">
-            {!joined ? (
-              <form onSubmit={handleJoinWaitlist} className="space-y-4">
-                <div className="text-left mb-2">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-[#71717A]">
-                      Join the VIP Waitlist
-                    </label>
-                    <span className="text-[11px] font-semibold text-[#F05A28] bg-[#FFF3EE] px-2 py-0.5 rounded-full">
-                      🎁 Free Recipe Card Pack Included
-                    </span>
-                  </div>
-                  <div className="relative">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email (e.g. alex@gmail.com)"
-                      required
-                      className="w-full px-4 py-3.5 rounded-2xl bg-[#F9F9F8] border border-[#EAEAE6] text-[#0F1012] placeholder-[#A1A1AA] text-base focus:outline-none focus:ring-2 focus:ring-[#F05A28]/20 focus:border-[#F05A28] transition-all"
-                    />
-                  </div>
-                </div>
+          {/* Direct App Store & Google Play Download Box */}
+          <div className="max-w-xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-[#EAEAE6] shadow-xl shadow-black/[0.04] space-y-6">
+            <div className="space-y-2">
+              <span className="text-xs uppercase font-extrabold tracking-widest text-[#F05A28] block">
+                Official Launch
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0F1012] tracking-tight">
+                Get Cravey on your phone today
+              </h2>
+              <p className="text-xs sm:text-sm text-[#52525B]">
+                Start swapping cravings, tracking macros, and importing reels with 1 tap.
+              </p>
+            </div>
 
-                {errorMessage && (
-                  <div className="text-xs text-red-600 bg-red-50 p-2.5 rounded-xl border border-red-100">
-                    {errorMessage}
-                  </div>
-                )}
+            {/* Store Buttons */}
+            <StoreButtons variant="dark" size="lg" />
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-4 rounded-2xl font-bold text-white bg-[#0F1012] hover:bg-[#27272A] transition-all flex items-center justify-center gap-2 shadow-lg shadow-black/10 cursor-pointer text-base disabled:opacity-50"
-                >
-                  {loading ? (
-                    <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                  ) : (
-                    <>
-                      <span>Get Instant Early Access</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
-
-                <p className="text-[11px] text-[#A1A1AA] pt-1">
-                  🔒 No spam. Just priority invite + weekly free craving-swap cards.
-                </p>
-              </form>
-            ) : (
-              <div className="space-y-5 text-center py-2">
-                <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto text-green-600 border border-green-100">
-                  <CheckCircle2 className="w-7 h-7" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-[#0F1012] mb-1">
-                    You are #{queuePosition?.toLocaleString()} in line!
-                  </h3>
-                  <p className="text-sm text-[#52525B]">
-                    We’ve reserved your spot for <strong>{email}</strong>. Check your inbox shortly for your free craving-swap starter cards!
-                  </p>
-                </div>
-
-                {/* Referral Booster */}
-                <div className="bg-[#FAFAF8] rounded-2xl p-4 border border-[#EAEAE6] text-left space-y-2 mt-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#0F1012]">
-                      Want to skip the queue?
-                    </span>
-                    <span className="text-xs font-semibold text-[#F05A28]">
-                      +50 spots per friend
-                    </span>
-                  </div>
-                  <p className="text-xs text-[#71717A]">
-                    Share your invite link. Every friend who joins bumps you 50 spots closer to instant access.
-                  </p>
-                  <div className="flex items-center gap-2 pt-1">
-                    <input
-                      type="text"
-                      readOnly
-                      value={referralLink}
-                      className="text-xs bg-white border border-[#EAEAE6] rounded-xl px-3 py-2 flex-1 text-[#52525B] font-mono select-all"
-                    />
-                    <button
-                      type="button"
-                      onClick={copyReferral}
-                      className="px-3 py-2 bg-[#0F1012] text-white rounded-xl text-xs font-semibold flex items-center gap-1.5 hover:bg-[#27272A] transition-colors cursor-pointer"
-                    >
-                      {copied ? (
-                        <>
-                          <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
-                          <span>Copied</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>Copy</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-4 text-xs text-[#71717A] border-t border-[#F0F0EC]">
+              <span className="flex items-center gap-1 font-semibold text-[#0F1012]">
+                <CheckCircle2 className="w-4 h-4 text-[#16A34A]" />
+                3-Day Free Trial
+              </span>
+              <span>·</span>
+              <span className="flex items-center gap-1 font-semibold text-[#0F1012]">
+                <CheckCircle2 className="w-4 h-4 text-[#16A34A]" />
+                Zero Commitment
+              </span>
+              <span>·</span>
+              <span className="flex items-center gap-1 font-semibold text-[#0F1012]">
+                <CheckCircle2 className="w-4 h-4 text-[#16A34A]" />
+                Cancel Anytime
+              </span>
+            </div>
           </div>
 
           {/* Social Proof Strip */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-[#71717A]">
             <div className="flex items-center gap-1 text-[#F05A28] font-bold">
               <span>★★★★★</span>
-              <span className="text-[#0F1012] ml-1">4.9/5 Macro & Taste Rating</span>
+              <span className="text-[#0F1012] ml-1">4.9/5 Average App Rating</span>
             </div>
             <span className="hidden sm:inline">·</span>
             <div>
-              <strong className="text-[#0F1012]">{totalWaitlistCount.toLocaleString()}</strong> health-conscious food lovers on waitlist
+              <strong className="text-[#0F1012]">150+</strong> high-protein tested swaps
             </div>
             <span className="hidden sm:inline">·</span>
             <div className="flex items-center gap-1">
@@ -692,20 +547,8 @@ export default function WaitlistPage() {
                   </ul>
                 </div>
 
-                <div className="pt-4 flex flex-wrap items-center gap-3">
-                  <a
-                    href="#waitlist"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold bg-[#0F1012] text-white hover:bg-[#27272A] transition-all text-xs sm:text-sm shadow-md"
-                  >
-                    <span>Get Early Access on Mobile</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </a>
-                  <Link
-                    href="/blog"
-                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold bg-white text-[#0F1012] border border-[#EAEAE6] hover:bg-[#F4F4F0] transition-all text-xs sm:text-sm"
-                  >
-                    <span>Browse High-Protein Recipes</span>
-                  </Link>
+                <div className="pt-4 space-y-4">
+                  <StoreButtons variant="dark" size="md" className="justify-start" />
                 </div>
               </div>
 
@@ -845,7 +688,7 @@ export default function WaitlistPage() {
         </div>
       </section>
 
-      {/* 6. From The Blog & Health Journal (Using Fresh 16:9 Gourmet Images) */}
+      {/* 6. From The Blog & Health Journal */}
       <section className="py-20 bg-[#FAFAF8] border-y border-[#EAEAE6]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
@@ -874,7 +717,6 @@ export default function WaitlistPage() {
                 className="group flex flex-col justify-between bg-white rounded-3xl border border-[#EAEAE6] overflow-hidden hover:border-[#F05A28]/40 hover:shadow-lg hover:shadow-black/[0.04] transition-all"
               >
                 <div>
-                  {/* 16:9 Landscape Food Photo - Never Cropped */}
                   <div className="relative aspect-[16/9] w-full bg-[#F4F4F0] overflow-hidden">
                     <Image
                       src={post.coverImage}
@@ -930,12 +772,12 @@ export default function WaitlistPage() {
           <div className="space-y-4">
             {[
               {
-                q: "When is Cravey officially launching?",
-                a: "Cravey is launching on iOS and Android soon. Waitlist members get notified first, receive free founding member badges, and get immediate access to all launch recipes.",
+                q: "Is Cravey officially available right now?",
+                a: "Yes! Cravey is live and ready to download on both the Apple App Store and Google Play Store. You can start using it immediately on iOS and Android.",
               },
               {
                 q: "Is Cravey free to use?",
-                a: "Yes! Cravey offers a generous free tier with daily craving swaps, knolled visual recipes, and basic macro tracking. A Pro subscription will be available for customized meal planning and automatic grocery sync.",
+                a: "Yes! Cravey offers a generous free tier with daily craving swaps, knolled visual recipes, and basic macro tracking. A Pro subscription is available for unlimited AI reel importing and automated grocery sync.",
               },
               {
                 q: "Can I filter for allergies or dietary restrictions?",
@@ -944,10 +786,6 @@ export default function WaitlistPage() {
               {
                 q: "How does the 1-tap social video recipe import work?",
                 a: "Simply share or paste any TikTok, Instagram Reel, or YouTube Shorts link into Cravey. Our AI parses the video caption, extracts exact ingredient quantities, and automatically looks up verified USDA macronutrients.",
-              },
-              {
-                q: "What happens when I join the waitlist?",
-                a: "You'll secure your spot in line, receive our free 'Top 10 Secret Candy Swaps' guide, and get notified the exact minute Cravey launches with exclusive founding member perks.",
               },
             ].map((faq, index) => (
               <div
@@ -976,7 +814,7 @@ export default function WaitlistPage() {
         </div>
       </section>
 
-      {/* 8. Bottom Call-to-Action */}
+      {/* 8. Bottom Call-to-Action with Store Links */}
       <section className="py-20 bg-[#FAFAF8] border-t border-[#EAEAE6]">
         <div className="max-w-4xl mx-auto px-6 text-center space-y-6">
           <div className="w-14 h-14 rounded-2xl overflow-hidden border border-[#EAEAE6] shadow-sm flex items-center justify-center mx-auto bg-[#F05A28]">
@@ -992,21 +830,15 @@ export default function WaitlistPage() {
             Stop fighting your cravings. Start swapping them.
           </h2>
           <p className="text-base text-[#52525B] max-w-xl mx-auto">
-            Join over 1,400 health-conscious food lovers on the Cravey list. Get your free recipe pack and be the first to know when we launch.
+            Download Cravey on iOS or Android now. Get instant access to all 150+ high-protein recipes and meal prep tools.
           </p>
           <div className="pt-2">
-            <a
-              href="#waitlist"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-[#0F1012] hover:bg-[#27272A] transition-all shadow-lg shadow-black/10 text-base"
-            >
-              <span>Join the Waitlist (Free)</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
+            <StoreButtons variant="dark" size="lg" />
           </div>
         </div>
       </section>
 
-      {/* 9. Minimalist Footer (Cleaned: Sitemap removed per user request) */}
+      {/* 9. Minimalist Footer */}
       <footer className="py-12 bg-white border-t border-[#EAEAE6] text-xs text-[#71717A]">
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">

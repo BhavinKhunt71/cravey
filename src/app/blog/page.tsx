@@ -16,6 +16,7 @@ import {
   Utensils,
   Star,
 } from "lucide-react";
+import StoreButtons, { APP_STORE_URL } from "@/components/StoreButtons";
 import { BLOG_POSTS, BlogPost } from "@/data/blogs";
 
 const CATEGORIES = [
@@ -96,10 +97,10 @@ export default function BlogIndexPage() {
 
           <div className="flex items-center gap-3">
             <Link
-              href="/#waitlist"
+              href="/#download"
               className="px-4 py-2 rounded-xl text-sm font-semibold bg-[#0F1012] text-white hover:bg-[#27272A] transition-colors"
             >
-              Get Free Recipe Pack
+              Download App
             </Link>
           </div>
         </div>
@@ -376,22 +377,16 @@ export default function BlogIndexPage() {
         <section className="mt-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-[#0F1012] to-[#27272A] text-white text-center">
           <div className="max-w-xl mx-auto space-y-4">
             <span className="text-xs uppercase tracking-widest font-bold text-[#F05A28]">
-              Never Miss A High-Protein Swap
+              Available on iOS & Android
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Get weekly guilt-free recipes sent straight to your inbox.
+              Get all 150+ high-protein swaps right on your phone.
             </h2>
             <p className="text-xs sm:text-sm text-[#A1A1AA] leading-relaxed">
-              Join 1,400+ fitness cravers. We share one tested sweet swap or macro meal, complete with knolled ingredients and exact macros, every single Sunday.
+              Automatic macro calculations, portion scaling, aisle-by-aisle grocery lists, and 1-tap social recipe importing.
             </p>
             <div className="pt-2">
-              <Link
-                href="/#waitlist"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold bg-[#F05A28] text-white hover:bg-[#DE5227] transition-all shadow-md text-sm"
-              >
-                <span>Join the Cravey Community</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <StoreButtons variant="light" size="lg" />
             </div>
           </div>
         </section>
