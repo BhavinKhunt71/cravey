@@ -1,0 +1,51 @@
+{
+	"brandHue": 16,
+	"mode": "light",
+	"frame": "natural",
+	"outDir": "./out",
+	"canvas": { "art": "gradient", "range": [1, 5] },
+	"panels": [
+		{
+			"template": "hero",
+			"headline": "Hit your protein, <em>keep cravings</em>",
+			"subline": "High-protein recipes for late-night cravings",
+			"screenshot": "./screens/01.png",
+			"icon": "./screens/icon.png",
+			"tilt": -4
+		},
+		{
+			"template": "device-framed",
+			"headline": "Turn social videos into <em>recipe steps</em>",
+			"subline": "Paste any reel to extract ingredients and macros",
+			"screenshot": "./screens/02.png"
+		},
+		{
+			"template": "device-framed",
+			"headline": "Exact macros and <em>batch scaling</em>",
+			"subline": "Scale single servings to meal prep in one tap",
+			"screenshot": "./screens/03.png",
+			"callout": {
+				"crop": [0.0465, 0.418, 0.907, 0.129],
+				"side": "right",
+				"y": 0.47,
+				"scale": 1.15
+			}
+		},
+		{
+			"template": "device-framed",
+			"headline": "Hands-free cooking with <em>step timers</em>",
+			"subline": "Built-in kitchen timers keep every step on track",
+			"screenshot": "./screens/04.png"
+		},
+		{
+			"template": "device-framed",
+			"headline": "Weekly meals planned to <em>your macros</em>",
+			"subline": "Track daily targets and swap dishes instantly",
+			"screenshot": "./screens/05.png"
+		},
+		{
+			"template": "raw-screens",
+			"screenshot": "./screens/06.png"
+		}
+	]
+}

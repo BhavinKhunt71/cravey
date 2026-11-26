@@ -55,6 +55,149 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "high-protein-low-calorie-snacks-crispy-parmesan-edamame",
+    title: "Crispy Air Fryer Parmesan Edamame: The Ultimate High-Protein Low-Calorie Snack (20g Protein, 145 Calories)",
+    metaTitle: "Crispy Air Fryer Parmesan Edamame (20g Protein, 145 Cal) | Cravey",
+    metaDescription: "Crush salty chip cravings in 15 minutes with crispy air fryer parmesan edamame and whipped garlic-herb cottage cheese dip. 20g clean protein under 150 calories.",
+    keywords: [
+      "high protein low calorie snacks",
+      "crispy air fryer edamame",
+      "cottage cheese dip",
+      "healthy savory snacks",
+      "quick snacks under 150 calories",
+      "craving swaps",
+      "salty snack craving"
+    ],
+    category: "Craving Swaps",
+    readTime: "6 min read",
+    publishedAt: "2026-11-26",
+    updatedAt: "2026-11-26",
+    author: {
+      name: "Chef Liam Chen",
+      role: "Executive Prep Chef & Sports Nutritionist",
+      avatar: "/app-icon.png",
+    },
+    summary: "Crush salty chip cravings in 15 minutes with crispy air fryer parmesan edamame and whipped garlic-herb cottage cheese dip. 20g clean protein under 150 calories.",
+    coverImage: "/images/crispy-parmesan-edamame-hero.jpg",
+    recipeCard: {
+      title: "Crispy Air Fryer Parmesan Edamame with Whipped Garlic Dip",
+      prepTime: "5 mins",
+      cookTime: "10 mins",
+      totalTime: "⏱️ Prep: 5 mins | Cook: 10 mins | Total: 15 mins",
+      calories: 145,
+      protein: 20,
+      carbs: 11,
+      netCarbs: 6,
+      fat: 3.5,
+      fiber: 5,
+      sugar: 2,
+      sodiumMg: 260,
+      servings: 2,
+      rating: 4.96,
+      reviewsCount: 138,
+      difficulty: "Quick",
+      ingredients: [
+        { item: "Frozen Shelled Edamame (Thawed)", amount: "2 cups (300g)", note: "patted bone-dry with paper towels" },
+        { item: "Finely Grated Aged Parmigiano-Reggiano", amount: "3 tbsp (20g)", note: "microplaned for crust formation" },
+        { item: "Extra Virgin Olive Oil Cooking Spray", amount: "1 light mist", note: "under 1/2 tsp to bind seasoning" },
+        { item: "Garlic Powder & Smoked Paprika", amount: "1 tsp each", note: "savory umami seasoning foundation" },
+        { item: "Flaky Sea Salt & Coarse Black Pepper", amount: "1/2 tsp", note: "flavor booster" },
+        { item: "Low-Fat (2%) Cottage Cheese", amount: "1/2 cup (115g)", note: "blended until silky smooth" },
+        { item: "Fresh Lemon Juice & Chopped Chives", amount: "1 tbsp", note: "bright acidity for whipped dip" },
+      ],
+      instructions: [
+        {
+          stepNumber: 1,
+          title: "Thaw & Dry the Edamame",
+          instruction: "Rinse shelled edamame under warm water to thaw, then spread onto a clean kitchen towel. Pat vigorously until completely dry. Removing all surface moisture is the #1 secret to achieving shatter-crisp edges instead of steaming.",
+          timerMins: 2,
+        },
+        {
+          stepNumber: 2,
+          title: "Season & Toss with Parmesan",
+          instruction: "Transfer dry edamame to a bowl. Lightly spray with olive oil mist, then toss with garlic powder, smoked paprika, flaky sea salt, black pepper, and 2 tablespoons of grated parmesan until evenly coated.",
+          timerMins: 3,
+        },
+        {
+          stepNumber: 3,
+          title: "Air Fry to Golden Perfection",
+          instruction: "Preheat air fryer to 390°F (199°C). Spread edamame in an even single layer in the basket. Air fry for 10 minutes total, shaking vigorously at the 5-minute mark. In the final minute, dust with remaining 1 tbsp parmesan for a toasted crispy shell.",
+          timerMins: 10,
+        },
+        {
+          stepNumber: 4,
+          title: "Whip the High-Protein Dip",
+          instruction: "While edamame crisps, blend cottage cheese, fresh lemon juice, a pinch of garlic powder, and sea salt in a mini food processor for 45 seconds until silky like whipped ricotta. Spoon into a ramekin and garnish with fresh chives.",
+          timerMins: 1,
+        },
+      ],
+      macrosRatio: { proteinPct: 55, carbsPct: 25, fatPct: 20 },
+    },
+    keyTakeaways: [
+      "Salty, crunchy evening cravings are driven by dopamine dips and high cortisol, not lack of willpower.",
+      "Edamame is a complete plant protein containing all 9 essential amino acids, yielding 18g-20g protein per cup with 8g gut-friendly prebiotic fiber.",
+      "Blending low-fat cottage cheese eliminates curd texture entirely, creating a 14g-protein dip with less than 90 calories.",
+      "Air frying at 390°F produces the same satisfying blister and crunch as fried potato chips without oxidized seed oils or calorie spikes.",
+      "Import this recipe directly into Cravey to auto-generate your grocery list and track macros with 1 tap.",
+    ],
+    deepLinks: [
+      { text: "Import & Save Recipe in Cravey iOS App", url: "https://apps.apple.com/app/id6829174927", context: "1-tap visual recipe saver for iPhone" },
+      { text: "Download Cravey on Google Play Store", url: "https://play.google.com/store/apps/details?id=com.cravey.mealprep", context: "macro tracking & grocery sync on Android" },
+      { text: "Why 95% of Diets Fail at 9:15 PM (The Dopamine Science)", url: "/blog/science-of-late-night-cravings", context: "read neurochemical study" },
+      { text: "Explore All 150+ Cravey Candy & Salty Swaps", url: "/#app-tour", context: "browse healthy snack alternatives" },
+      { text: "High-Protein Sweet Snacks That Taste Like Real Candy", url: "/blog/high-protein-sweet-snacks-healthy-candy-alternatives", context: "sweet craving dupe guide" },
+    ],
+    faq: [
+      {
+        q: "Why is edamame one of the best high-protein low-calorie snacks for weight loss?",
+        a: "Edamame is one of the rare plant sources that delivers a complete protein profile containing all 9 essential amino acids. One cup provides 18-20 grams of protein and 8 grams of dietary fiber for under 190 calories. The combination of slow-digesting protein and viscous fiber delays gastric emptying, stabilizing blood glucose and keeping you satiated for hours.",
+      },
+      {
+        q: "Can I make crispy parmesan edamame in a conventional oven instead of an air fryer?",
+        a: "Yes! Preheat your oven to 425°F (218°C) and line a heavy baking sheet with parchment paper. Spread the seasoned edamame in a single uncrowded layer and roast for 18 to 22 minutes, shaking the pan once at the 10-minute mark, until the parmesan is golden brown and the edamame is crispy.",
+      },
+      {
+        q: "How do I import and log this recipe into Cravey with 1 tap?",
+        a: "Open the Cravey app on iOS or Android, tap the '+' button, and paste the URL of this guide or any cooking video. Cravey's recipe parser automatically extracts the ingredients, scales the servings, verifies the USDA macros, and syncs the ingredients straight to your grocery delivery cart.",
+      },
+    ],
+    sections: [
+      {
+        heading: "The 9 PM Salty Snack Urge: Why Celery and Rice Cakes Never Work",
+        subheading: "The neuroscience behind why your brain demands potato chips",
+        content:
+          "When 9 PM rolls around, millions of people reach for a family-sized bag of potato chips, buttered popcorn, or salty pretzels. Diet gurus tell you to drink another glass of water or chew on raw celery stalks. But biologically, that approach is guaranteed to backfire. By late evening, mental decision fatigue has drained your prefrontal cortex, while cortisol from workday stressors triggers intense cravings for sodium and fat—two primal survival markers. Denying this craving with bland raw vegetables only intensifies the neural reward deficit, eventually leading to a 300-calorie binge at midnight. The real solution is swapping empty refined carbohydrates for an intensely savory, crunchy whole-food alternative that delivers umami satisfaction alongside 20 grams of satiating protein.",
+        highlightBox: {
+          title: "Why Sodium + Crunch Satisfies the Brain",
+          text: "Auditory feedback (the acoustic 'crunch') and sodium chloride stimulate dopamine pathways without needing sugar. By delivering that exact sensory mouthfeel with nutrient-dense edamame and aged parmesan, you extinguish the craving signal in under 5 minutes.",
+          type: "fact",
+        },
+      },
+      {
+        heading: "Why Edamame + Whipped Cottage Cheese Is the Ultimate Macro Cheat Code",
+        subheading: "20g complete protein, 6g net carbs, and under 150 calories per serving",
+        content:
+          "Most store-bought 'protein snacks' are heavily processed bars packed with artificial sweeteners, seed oils, and sugar alcohols that cause severe bloating. In contrast, shelled young soybeans (edamame) are a genuine superfood: they deliver a complete amino acid profile, high levels of isoflavones, and zero refined starch. When tossed in aged Parmigiano-Reggiano and blasted in the air fryer, the outer skins blister into delicate, crunchy shells reminiscent of crispy bar nuts. Pairing them with a whipped cottage cheese dip—blended with fresh garlic and lemon—adds another 10 grams of slow-digesting casein protein, creating an indulgent restaurant-quality appetizer that fits effortlessly into any cutting or muscle-building diet.",
+        highlightBox: {
+          title: "Pro Prep Tip: The Moisture Factor",
+          text: "Always pat your thawed edamame bone-dry with paper towels before seasoning. Residual water creates steam in the air fryer basket, preventing the parmesan from crystallizing into a shatter-crisp crust.",
+          type: "tip",
+        },
+      },
+      {
+        heading: "3 Chef Secrets for Maximum Crunch in 15 Minutes",
+        subheading: "How to get potato-chip level crispiness without deep frying",
+        content:
+          "To guarantee foolproof results every single time, follow these three chef guidelines: First, do not crowd the air fryer basket—air circulation is critical for rapid moisture evaporation. Second, set the air fryer to 390°F (199°C) and shake the basket at the 5-minute mark to ensure 360-degree heat exposure. Third, add your parmesan in two stages: toss two-thirds before cooking so it adheres to the edamame, then sprinkle the remaining tablespoon during the last 60 seconds of cooking so it toasts into a fragrant, golden lace crust.",
+        highlightBox: {
+          title: "1-Tap Recipe Tracking",
+          text: "Save this exact recipe into Cravey to access guided cook mode with built-in countdown timers and instant grocery list export to Instacart or Walmart.",
+          type: "tip",
+        },
+      },
+    ],
+  },
+  {
     slug: "high-protein-sweet-snacks-healthy-candy-alternatives",
     title: "7 High-Protein Sweet Snacks That Taste Like Real Candy (Crush 9 PM Cravings)",
     metaTitle: "7 High-Protein Sweet Snacks That Taste Like Candy | Cravey",

@@ -13,9 +13,11 @@
     "keyword": "high protein low calorie snacks",
     "searchVolumeUS": "1k - 10k",
     "competition": "High",
-    "status": "pending",
+    "status": "published",
     "targetRecipe": "Crispy Air Fryer Parmesan Edamame & Cottage Cheese Dip",
-    "primaryIntent": "Quick grab-and-go savory snack under 150 calories with 20g protein"
+    "primaryIntent": "Quick grab-and-go savory snack under 150 calories with 20g protein",
+    "publishedUrl": "https://cravey-omega.vercel.app/blog/high-protein-low-calorie-snacks-crispy-parmesan-edamame",
+    "publishedAt": "2026-11-26"
   },
   {
     "id": "kw-003",
